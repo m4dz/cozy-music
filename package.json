@@ -1,0 +1,86 @@
+{
+  "name": "Cozic",
+  "version": "0.0.1",
+  "engines": [
+    "node = 0.8.x"
+  ],
+  "description": "A cozy application to play, upload and organize your music",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flyingrub/cozy-music.git"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "americano": "0.4.2",
+    "async": "1.5.0",
+    "cozydb": "0.1.4",
+    "debug": "2.2.0",
+    "errorhandler": "1.4.2",
+    "invariant": "2.2.0",
+    "jade": "1.11.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "4.1.6",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.2.0",
+    "babel-preset-es2015": "6.1.18",
+    "babel-preset-react": "6.1.18",
+    "babel-preset-stage-2": "6.1.18",
+    "babelify": "7.2.0",
+    "envify": "3.4.0",
+    "eslint": "1.10.1",
+    "eslint-config-airbnb": "1.0.0",
+    "eslint-plugin-react": "3.10.0",
+    "history": "1.13.1",
+    "immutable": "3.7.5",
+    "mocha": "2.3.4",
+    "moment": "2.10.6",
+    "nib": "1.1.0",
+    "node-polyglot": "0.4.4",
+    "nodemon": "1.8.1",
+    "request-json": "0.5.3",
+    "reselect": "2.0.1",
+    "should": "7.1.1",
+    "sinon": "1.17.2",
+    "stylus": "0.52.4",
+    "superagent": "1.4.0",
+    "uglify-js": "2.6.1",
+    "underscore": "1.8.3",
+    "url-pattern": "0.10.2",
+    "watchify": "3.6.1"
+  },
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "DEBUG=app:* npm run watch:server & npm run watch:client",
+    "lint": "node_modules/.bin/eslint src/**",
+    "test": "node_modules/.bin/mocha --compilers js:babel/register test/*/**/*.js",
+    "test:watch:server": "node_modules/.bin/mocha --compilers js:babel/register --bail --watch test/server/**/*.js",
+    "postinstall": "chmod u+x scripts/*",
+    "prepare-build": "mkdir -p dist/client/public/styles && mkdir -p dist/client/public/scripts",
+    "build:js:client": "./scripts/build-js-client",
+    "build:js:server": "./scripts/build-js-server",
+    "build:template": "./scripts/build-template",
+    "build:css": "./scripts/build-css",
+    "build:assets": "cp -R src/client/assets/* dist/client/public",
+    "build": "npm run prepare-build && NODE_ENV=production npm run build:js:client && npm run build:js:server && npm run build:template && npm run build:css && npm run build:assets",
+    "prepare-watch": "mkdir -p src/client/public/styles && mkdir -p src/client/public/scripts; npm run build:js:vendors; npm run build:assets:dev",
+    "build:js:vendors": "./scripts/build-vendors-dev",
+    "build:assets:dev": "cp -R src/client/assets/* src/client/public",
+    "watch:js": "./scripts/watch-js",
+    "watch:css": "./scripts/watch-css",
+    "watch:client": "npm run prepare-watch; npm run watch:js & npm run watch:css",
+    "watch:server": "node_modules/.bin/nodemon --ignore src/client/ --ignore tests/ --ignore scripts/ --ignore node_modules/ --ignore build/ --ignore package.json --exec npm run compile:server",
+    "compile:server": "node_modules/.bin/babel-node src/server.js"
+  },
+  "cozy-permissions": {
+    "Track": {
+      "description": "upload and store your music on your cozy"
+    },
+    "Playlist": {
+      "description": "manage your playlists"
+    }
+  },
+  "cozy-displayName": "Tasky",
+  "icon-path": "dist/client/public/icons/main_icon.svg",
+  "cozy-color": "#3BDA6C"
+}

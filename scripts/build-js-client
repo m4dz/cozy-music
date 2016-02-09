@@ -1,0 +1,9 @@
+#!/bin/bash
+node_modules/.bin/browserify \
+    --debug \
+    -t babelify \
+    -t [ envify --NODE_ENV production ] \
+    --extension='.jsx' \
+    --extension='.js' \
+    -e src/client/app/initialize.js \
+    > dist/client/public/scripts/bundle.js
