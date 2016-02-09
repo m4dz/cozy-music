@@ -1,26 +1,4 @@
 #!/bin/bash
 ./node_modules/.bin/watchify -dv \
     -t babelify \
-    -t [ envify --NODE_ENV development ] \
-    --extension=".jsx" \
-    --extension=".js" \
-    -e 'src/client/app/initialize.js' \
-    -o 'src/client/public/scripts/bundle.js' \
-    -x underscore \
-    -x react/addons \
-    -x superagent \
-    -x node-polyglot \
-    -x async \
-    -x moment \
-    -x classnames \
-    -x react-redux \
-    -x redux \
-    -x immutable \
-    -x reselect \
-    -x redux-thunk \
-    -x redux-logger \
-    -x debug \
-    -x invariant \
-    -x "history" \
-    -x url-pattern \
-    -x react-dom
+    --extension=".js"

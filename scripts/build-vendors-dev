@@ -1,21 +1,3 @@
 #!/bin/bash
 node_modules/.bin/browserify --debug \
-    -r underscore \
-    -r react/addons \
-    -r superagent \
-    -r node-polyglot \
-    -r async \
-    -r moment \
-    -r classnames \
-    -r react-redux \
-    -r redux \
-    -r immutable \
-    -r reselect \
-    -r redux-thunk \
-    -r redux-logger \
-    -r debug \
-    -r invariant \
-    -r "history" \
-    -r url-pattern \
-    -r react-dom \
-    > src/client/public/scripts/bundle-vendors.js
+	> src/client/public/scripts/bundle-vendors.js
