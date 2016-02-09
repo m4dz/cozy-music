@@ -1,5 +1,4 @@
 # Description
-
 Cozic is a music player developed to fill my needs for my Cozy Cloud. It uses SoundManager2 javascript library. 
 
 If you want to test it go to https://demo.cozycloud.cc/#apps/cozic/ .
@@ -14,33 +13,42 @@ shortcuts enabled :
 - "v" : switch between tracks view and play-queue view
 
 ### NB
-
 For now, it's impossible to upload file from IE.
 
 ### Warning
-
 Don't try to upload songs from multiple devices simultaneously or you'll regret it.
 
 # Run
-
 Clone this repository, install dependencies and run server (it requires Node.js
 and Coffee-script)
+```
+git clone git://github.com/rdubigny/cozy-music.git
+cd cozy-music
+npm install
+npm start
+```
 
-    git clone git://github.com/rdubigny/cozy-music.git
-    cd cozy-music
-    npm install
-    coffee server.coffee
+# Contributing
+Let me know what you would like to see in the application so we can discuss it. The simplest way to do it is [opening an issue](https://github.com/jsilvestre/tasky/issues/new).
 
-# About Cozy
+Make sure there is not already an issue discussing the feature or the bug you are about to post about!
 
-This app is suited to be deployed on the Cozy platform. Cozy is the personal
-server for everyone. It allows you to install your every day web applications
-easily on your server, a single place you control. This means you can manage
-efficiently your data while protecting your privacy without technical skills.
+# What is Cozy?
 
-More informations and hosting services on:
-http://cozycloud.cc
+![Cozy Logo](https://raw.github.com/mycozycloud/cozy-setup/gh-pages/assets/images/happycloud.png)
 
-# Cozy on IRC
-Feel free to check out our IRC channel (#cozycloud at freenode.net) if you have
-any technical issues/inquiries or simply to speak about Cozy Cloud in general.
+[Cozy](http://cozy.io) is a platform that brings all your web services in the
+same private space.  With it, your web apps and your devices can share data
+easily, providing you
+with a new experience. You can install Cozy on your own hardware where no one
+profiles you. You install only the applications you want. You can build your
+own one too.
+
+## Community
+
+You can reach the Cozy community via various channels:
+
+* IRC #cozycloud on irc.freenode.net
+* Post on our [Forum](https://forum.cozy.io/)
+* Post issues on the [Github repos](https://github.com/cozy/)
+* [Twitter](http://twitter.com/mycozycloud)
