@@ -1,5 +1,4 @@
 import * as index from './index';
+import * as tracks from './tracks';
 
-export const foo = {
-    get: index.main,
-};
+export '' {get: index.main}

@@ -1,6 +1,6 @@
 // See documentation on https://github.com/cozy/cozy-db
 
-import cozydb from 'cozydb'
+import cozydb from 'cozydb';
 
 export const Track = cozydb.getModel('Track', {
     title: String,
@@ -21,3 +21,10 @@ export const Track = cozydb.getModel('Track', {
     },
     binary: Object
 });
+
+Track.all = (callback) => {
+    Track.request('all', {}, (err, tracks) => {
+        const error = err || tracks.error;
+        callback(error, tracks);
+    });
+};
