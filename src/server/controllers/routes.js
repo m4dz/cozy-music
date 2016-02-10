@@ -1,10 +1,5 @@
-// See documentation on https://github.com/cozy/americano#routes
+import * as index from './index';
 
-var index = require('./index');
-
-module.exports = {
-  'foo': {
-    get: index.main
-  }
+export const foo = {
+    get: index.main,
 };
-
