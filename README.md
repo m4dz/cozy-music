@@ -29,7 +29,7 @@ npm start
 ```
 
 # Contributing
-Let me know what you would like to see in the application so we can discuss it. The simplest way to do it is [opening an issue](https://github.com/jsilvestre/tasky/issues/new).
+Let me know what you would like to see in the application so we can discuss it. The simplest way to do it is [opening an issue](https://github.com/flyingrub/cozy-music/issues/new).
 
 Make sure there is not already an issue discussing the feature or the bug you are about to post about!
 
