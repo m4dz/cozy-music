@@ -1,18 +1,22 @@
-import americano from 'americano';
+// See documentation on https://github.com/cozy/cozy-db
+
+var cozydb = require('cozydb');
 
 module.exports = {
-    tasky: {
-        all: americano.defaultRequests.all,
-        byArchiveState: americano.defaultRequests.by('isArchived'),
-        byOrder: (doc) => {
-            if (!doc.isArchived) {
-                emit(doc.order, doc); // eslint-disable-line no-undef
-            }
-        },
-    },
+  template: {
+    // shortcut for emit doc._id, doc
+    all: cozydb.defaultRequests.all,
 
-    favorite_tag: {
-        allByApp: americano.defaultRequests.by('application'),
-        byAppByLabel: (doc) => emit([doc.application, doc.label], doc), // eslint-disable-line no-undef, max-len
-    },
+    /* create all the requests you want!
+    This request will gives you the number of documents that share
+    the same date */
+    customRequest: {
+      map: function (doc) {
+        return emit(doc.date, doc);
+      },
+      reduce: function (key, values, rereduce) {
+        return sum(values);
+      }
+    }
+  }
 };
