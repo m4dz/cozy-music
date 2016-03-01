@@ -1,6 +1,7 @@
 import Mn from 'backbone.marionette';
-import Tracks from '../collections/tracks';
 import TrackView from './track';
+import application from '../application';
+
 
 const TracksView = Mn.CollectionView.extend({  
     el: '#app-hook',
@@ -20,12 +21,15 @@ const TracksView = Mn.CollectionView.extend({
         const id = e.currentTarget.dataset.id;
         const item = this.collection.get(id);
         item.set('hidden', true);
-        item.save();
+        item.save()
+        application.allTracks.remove(item)
+        application.tracksView.render();
+    },
+    onRender: function(){
+        console.log('render tracksview')
     },
     initialize: function() {
-        const tracks = new Tracks();
-        tracks.fetch();
-        this.collection = tracks;
+        this.collection = application.allTracks;
     }
 });
 

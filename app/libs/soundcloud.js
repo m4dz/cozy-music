@@ -1,4 +1,5 @@
 import Track from '../models/track';
+import application from '../application';
 
 
 const api = 'https://api.soundcloud.com';
@@ -50,8 +51,7 @@ class Soundcloud {
             artist: track.user.username,
             genre: track.genre,
         });
-        console.log(newTrack);
-        newTrack.save();
+        application.allTracks.add(newTrack);
         alert('Imported ' + track.title);
     }
 

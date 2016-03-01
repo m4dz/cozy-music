@@ -1,4 +1,5 @@
 import Track from '../models/track';
+import application from '../application';
 
 
 export const syncFiles = function () {
@@ -58,7 +59,7 @@ function saveTrack(musicFiles, tracksFileId) {
         });
 
         if (tracksFileId.indexOf(fileid) <= -1) { // does not contains fileid 
-            t.save();
+            application.allTracks.add(t);
         }
     }
 }

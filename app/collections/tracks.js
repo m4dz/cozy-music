@@ -4,6 +4,16 @@ import Track from '../models/track';
 
 const Tracks = Backbone.Collection.extend({
     model: Track,
+
+    initialize: function() {
+        this.on('add', this.onAdd, this);
+    },
+
+    onAdd: function(track) {
+        if (!track.get('_id')) {
+            track.save()
+        }
+    },
     
     comparator: function (collection) {
         return collection.get('metas').title;
@@ -19,6 +29,7 @@ const Tracks = Backbone.Collection.extend({
                     for (let i = 0; i < tracks.length; i++) {
                         this.add(tracks[i].value);
                     }
+                    options.success();
                 }
             });
         }

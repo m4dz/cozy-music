@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import scdl from '../libs/soundcloud';
+import application from '../application';
 
 
 const Track = Backbone.Model.extend({
@@ -21,6 +22,7 @@ const Track = Backbone.Model.extend({
             case 'create':
                 cozysdk.create('Track', model.toJSON(), (err, res) => {
                     console.log('CREATE TRACK', err, res);
+                    model.set('_id', res._id);
                 });
                 break;
             case 'read':
@@ -31,6 +33,10 @@ const Track = Backbone.Model.extend({
             case 'update':
                 cozysdk.updateAttributes(
                     'Track', model.id, model.toJSON(), (err, res) => {
+                    if (res) {
+                        options.success();
+                        console.log(options);
+                    }
                     console.log('UPDATE TRACK', err, res);
                 });
                 break;
