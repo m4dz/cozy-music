@@ -61,8 +61,8 @@ const Track = Backbone.Model.extend({
                 cozysdk.getFileURL(id, 'file', (err, res) => {
                     console.log('FILEURL', err, res);
                     if (res) {
-                        res = 'http://' + res.split('@')[1]; // to delete in prod
-                        this.play(res);
+                        let url = 'http://' + res.split('@')[1]; // to delete in prod
+                        this.play(url);
                     }
                 })
                 break;

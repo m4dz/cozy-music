@@ -23,8 +23,8 @@ const TracksView = Mn.CollectionView.extend({
         const id = e.currentTarget.dataset.id;
         const item = this.collection.get(id);
         item.set('hidden', true);
-        item.save()
-        application.allTracks.remove(item)
+        item.save();
+        application.allTracks.remove(item);
         application.tracksView.render();
     },
     
