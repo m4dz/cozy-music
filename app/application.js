@@ -1,7 +1,7 @@
 import Mn from 'backbone.marionette';
 import Backbone from 'backbone';
 import Tracks from './collections/tracks';
-import TracksView from './views/tracks';
+import AppLayout from './views/app_layout';
 
 
 const Application = Mn.Application.extend({
@@ -16,8 +16,8 @@ const Application = Mn.Application.extend({
         if (Backbone.history) {
             Backbone.history.start();
         }
-        this.tracksView = new TracksView();
-        this.tracksView.render();
+        this.appLayout = new AppLayout();
+        this.appLayout.render();
     }
 });
 

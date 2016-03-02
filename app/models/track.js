@@ -2,7 +2,6 @@ import Backbone from 'backbone';
 import scdl from '../libs/soundcloud';
 import application from '../application';
 
-
 const Track = Backbone.Model.extend({
 
     defaults: {
@@ -35,7 +34,6 @@ const Track = Backbone.Model.extend({
                     'Track', model.id, model.toJSON(), (err, res) => {
                     if (res) {
                         options.success();
-                        console.log(options);
                     }
                     console.log('UPDATE TRACK', err, res);
                 });
@@ -48,12 +46,14 @@ const Track = Backbone.Model.extend({
         }
     },
 
-    updatePlays: function () {
+    play: function (url) {
         this.set('plays', this.get('plays') +1);
         this.save();
+        const player = application.appLayout.getRegion('player').currentView;
+        player.play(url);
     },
 
-    getStreamURL: function (play) {
+    getStreamAndPlay: function () {
         const ressource = this.get('ressource');
         switch (ressource.type) {
             case 'file':
@@ -61,18 +61,15 @@ const Track = Backbone.Model.extend({
                 cozysdk.getFileURL(id, 'file', (err, res) => {
                     console.log('FILEURL', err, res);
                     if (res) {
-                        res = 'http://' + res.split('@')[1];
-                        this.updatePlays();
-                        play(res);
+                        res = 'http://' + res.split('@')[1]; // to delete in prod
+                        this.play(res);
                     }
                 })
                 break;
             case 'soundcloud':
                 const url = this.get('ressource').url;
-                this.updatePlays();
-                play(scdl.addClientID(url));
+                this.play(scdl.addClientID(url));
                 break;
-
         }
     }
 });
