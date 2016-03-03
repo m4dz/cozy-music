@@ -14,6 +14,10 @@ const Tracks = Backbone.Collection.extend({
             track.save()
         }
     },
+
+    onChange: function() {
+        console.log('sdfsdfsf')
+    },
     
     comparator: function (collection) {
         return collection.get('metas').title;

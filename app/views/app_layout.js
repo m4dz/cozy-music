@@ -1,5 +1,5 @@
 import Mn from 'backbone.marionette';
-import TracksView from './tracks';
+import ContentView from './content';
 import PlayerView from './player';
 import ToolbarView from './toolbar';
 
@@ -16,7 +16,7 @@ const AppLayout = Mn.LayoutView.extend({
     },
 
     onRender: function() {
-        this.showChildView('content', new TracksView());
+        this.showChildView('content', new ContentView());
         this.showChildView('player', new PlayerView());
         this.showChildView('toolbar', new ToolbarView());
     }

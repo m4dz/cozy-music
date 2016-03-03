@@ -30,7 +30,7 @@ class Soundcloud {
                 if (!exist) {
                     this.importTrack(track);
                 } else {
-                    alert('Already in DB')
+                    alert('This track is already in the Database')
                 }
             }
         });
@@ -38,7 +38,7 @@ class Soundcloud {
 
     importTrack(track) {
         if (!track.streamable) {
-            alert('Track is not streamable');
+            alert('This track is not streamable');
             return;
         }
         let newTrack = new Track();
@@ -52,7 +52,6 @@ class Soundcloud {
             genre: track.genre,
         });
         application.allTracks.add(newTrack);
-        alert('Imported ' + track.title);
     }
 
     addClientID(url) {

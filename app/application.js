@@ -9,10 +9,13 @@ const Application = Mn.Application.extend({
 	initialize: function () {
 		this.allTracks = new Tracks();
         this.allTracks.fetch();
+        this.headerInfos = new Backbone.Model({
+            title: 'All Tracks',
+            count: 0
+        });
 	},
 
     onStart: function () {
-        console.log('start');
         if (Backbone.history) {
             Backbone.history.start();
         }

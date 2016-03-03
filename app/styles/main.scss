@@ -1,0 +1,160 @@
+@import 'base';
+
+html, body {
+    height: 100%;
+    font-family: 'SSP-reg';
+}
+
+div[role='application'] {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+div[role='toolbar'] {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 25px 16px;
+    min-width: 280px;
+    flex-basis: 280px;
+    @include toolbar;
+    display: flex;
+    flex-direction: column;
+
+    .button {
+        cursor: pointer;
+        font-family: 'SSP-sb';
+        background-color: $blue;
+        border-radius: 2px;
+        height: 38px;
+        margin-bottom: 2px;
+        width: 100%;
+        padding-top: 9px;
+        padding-bottom: 10px;
+        padding-left: 40px;
+        box-sizing: border-box;
+
+        p {
+            font-size: 14px;
+            line-height: 1.4;
+            color: white;
+        }
+    }
+
+    .button:active {
+        padding-top: 10px;
+    }
+
+    .focused {
+        background-color: transparent;
+        border: solid 1px $blue;
+        
+        input[type='text'] {
+            all: unset;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            color: $text-light;
+        }
+    }
+
+    .input {
+        font-family: 'SSP-it';
+        margin-top: 30px;
+        width: 100%;
+        height: 38px;
+        border-radius: 2px;
+        border: solid 1px #a7b5c6;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        padding-left: 40px;
+        box-sizing: border-box;
+
+        p {
+            font-size: 16px;
+            line-height: 1.3;
+            color: $text-light;
+        }
+
+    }
+
+    input[type='text'] {
+        all: unset;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+div[role='content'] {
+    padding: 25px 33px;
+    flex-grow: 1;
+
+    h3 {
+        font-size: 24px;
+        line-height: 0.8;
+        height: 31px;
+        color: $text-dark;
+
+        em {
+            color: $text-light;
+        }
+    }
+
+    table {
+        width: 100%;
+        color: $text-light;
+
+        .number {
+            padding-left: 8px;
+            width: 38px;
+            align: center;
+        }
+
+        .title {
+            color: $text-dark;
+        }
+
+        th {
+            max-width: 700px;
+        }
+
+        thead {
+            color: $text-dark;
+            font-family: 'SSP-sb';
+            height: 41px;
+            border-bottom: 2px #d5dce1 solid;
+            font-size: 13px;
+            line-height: 1.5;            
+        }
+
+        tbody {
+            tr {
+                word-wrap: break-word;
+                cursor: pointer;
+                height: 41px;
+                background-color: transparent;
+                box-shadow: inset 0 -1px 0 0 #d5dce1;
+            }
+
+            tr:hover {
+                background-color: $background-dark;
+            }
+        }
+    }
+}
+
+div[role='player'] {
+    box-sizing: border-box;
+    position:absolute;
+    bottom:0;
+    left:0;
+    height: 72px;
+    width: 100%;
+    @include toolbar;
+
+    audio {
+        @include horizontal-align;
+        margin: 20px;
+    }
+}

@@ -7,15 +7,13 @@ const Toolbar = Mn.LayoutView.extend({
     template: require('./templates/toolbar'),
 
     ui: {
-        url: "input[type=text]"
+        importSC: '#import-sc',
+        importText: '#import-text'
     },
 
     events: {
-        'click #sync-from-files': 'sync',
-        'click #import': 'importSC'
-    },
-
-    onRender: function() {
+        'click #sync-files': 'sync',
+        'click #import-sc': 'importSC'
     },
 
     sync: function() {
@@ -23,7 +21,9 @@ const Toolbar = Mn.LayoutView.extend({
     },
 
     importSC: function() {
-        scdl.import(this.ui.url.val());
+        let importSC = this.ui.importSC
+        scdl.import(this.ui.importText.val());
+        //importSC.addClass('focused');
     }
 });
 
