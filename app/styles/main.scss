@@ -24,7 +24,7 @@ div[role='toolbar'] {
 
     .tools {
         padding-left: 16px;
-        padding-right: 16px;    
+        padding-right: 16px;
 
         .button {
             cursor: pointer;
@@ -70,9 +70,6 @@ div[role='toolbar'] {
             height: 38px;
             border-radius: 2px;
             border: solid 1px #a7b5c6;
-            padding-top: 9px;
-            padding-bottom: 9px;
-            padding-left: 40px;
             box-sizing: border-box;
 
             p {
@@ -85,6 +82,7 @@ div[role='toolbar'] {
 
         input[type='text'] {
             all: unset;
+            padding-left: 40px;
             box-sizing: border-box;
             width: 100%;
             height: 100%;
@@ -93,10 +91,15 @@ div[role='toolbar'] {
 
     .playlists {
         padding-right: 16px;
+
+        .add-playlist {
+            margin-top: 0px;
+            cursor: pointer;
+        }
         
         h4 {
-            padding-left: 16px;    
             margin-top: 33px;
+            padding-left: 16px;
             height: 36px;
             font-family: "SSP-sb";
             font-size: 13px;
@@ -158,16 +161,6 @@ div[role='content'] {
         width: 100%;
         color: $text-light;
 
-        .number {
-            padding-left: 8px;
-            width: 38px;
-            align: center;
-        }
-
-        .title {
-            color: $text-dark;
-        }
-
         th {
             max-width: 700px;
         }
@@ -182,6 +175,21 @@ div[role='content'] {
         }
 
         tbody {
+
+            .number {
+                padding-left: 8px;
+                width: 38px;
+                align: center;
+            }
+
+            .title {
+                color: $text-dark;
+            }
+
+            .playing * {
+                color: $red;
+            }
+
             tr {
                 word-wrap: break-word;
                 cursor: pointer;
@@ -189,6 +197,8 @@ div[role='content'] {
                 background-color: transparent;
                 box-shadow: inset 0 -1px 0 0 #d5dce1;
             }
+
+
 
             tr:hover {
                 background-color: $background-dark;

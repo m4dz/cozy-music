@@ -15,6 +15,10 @@ const TrackView = Mn.ItemView.extend({
 
     play: function (e) {
         this.model.getStreamAndPlay();
+        $(e.currentTarget)
+            .addClass('playing')
+            .siblings()
+            .removeClass('playing');
     },
     
     delete: function (e) {

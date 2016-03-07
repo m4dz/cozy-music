@@ -21,12 +21,18 @@ const Track = Backbone.Model.extend({
             case 'create':
                 cozysdk.create('Track', model.toJSON(), (err, res) => {
                     console.log('CREATE TRACK', err, res);
-                    model.set('_id', res._id);
+                    if (res) {
+                        model.set('_id', res._id);
+                        options.success();
+                    }
                 });
                 break;
             case 'read':
                 cozysdk.find('Track', model.get('_id'), (err, res) => {
                     console.log('READ TRACK', err, res);
+                    if (res) {
+                        options.success();
+                    }
                  });
                 break;
             case 'update':
@@ -41,6 +47,9 @@ const Track = Backbone.Model.extend({
             case 'delete':
                 cozysdk.destroy('Track', model.get('_id'), (err, res) => {
                     console.log('DELETE TRACK', err, res);
+                    if (res) {
+                        options.success();
+                    }
                 });
                 break;
         }

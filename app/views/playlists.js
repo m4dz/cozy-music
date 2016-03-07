@@ -1,4 +1,5 @@
 import Mn from 'backbone.marionette';
+import PlaylistView from './playlist';
 import application from '../application';
 
 const Playlists = Mn.CompositeView.extend({
@@ -6,6 +7,8 @@ const Playlists = Mn.CompositeView.extend({
     template: require('views/templates/playlists'),
 
     childViewContainer: '#playlist-list',
+
+    childView: PlaylistView,
 
     ui: {
         playlists: 'p',
@@ -24,7 +27,7 @@ const Playlists = Mn.CompositeView.extend({
     },
     
     initialize: function() {
-
+        this.collection = application.allPlaylists;
     }
 });
 
