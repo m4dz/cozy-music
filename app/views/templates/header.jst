@@ -1,1 +1,10 @@
 <h3><%= title %> <em>(<%= count %>)</em></h3>
+<% if (title == "Up Next") { %>
+    <div class="button" id="reset-upnext">
+        <p>RESET UP NEXT</p>
+    </div>
+<% } else if (title != "All Songs") { %>
+    <div class="button" id="reset-upnext">
+        <p>DELETE PLAYLIST</p>
+    </div>
+<% }%>

@@ -12,7 +12,7 @@ const Application = Mn.Application.extend({
         this.upNext = new Tracks();
 
         this.headerInfos = new Backbone.Model({
-            title: 'All Tracks',
+            title: 'All Songs',
             count: 0
         });
 	},
