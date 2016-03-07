@@ -130,6 +130,7 @@ div[role='toolbar'] {
 div[role='content'] {
     background-color: white;
     padding: 25px 33px;
+    margin-bottom: 71px;
     flex-grow: 1;
     overflow: auto;
 
@@ -171,7 +172,7 @@ div[role='content'] {
             height: 41px;
             border-bottom: 2px #d5dce1 solid;
             font-size: 13px;
-            line-height: 1.5;            
+            line-height: 1.5;
         }
 
         tbody {
@@ -191,7 +192,8 @@ div[role='content'] {
             }
 
             tr {
-                word-wrap: break-word;
+                word-wrap: break-all;
+                overflow: hidden;
                 cursor: pointer;
                 height: 41px;
                 background-color: transparent;

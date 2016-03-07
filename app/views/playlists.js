@@ -18,11 +18,11 @@ const Playlists = Mn.CompositeView.extend({
         'click p': 'changePlaylist',
     },
 
-    changePlaylist: function(e) { // TO DO
-        this.ui.playlists.each(function() {
-            $(this).removeClass('selected');
-        });
-        $(e.currentTarget).addClass('selected');
+    changePlaylist: function(e) {
+        $(e.currentTarget)
+            .addClass('selected')
+            .siblings()
+            .removeClass('selected');
         application.headerInfos.set('title', e.currentTarget.innerHTML);
     },
     
