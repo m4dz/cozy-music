@@ -15,7 +15,8 @@ const Header = Mn.ItemView.extend({
     serializeData: function() {
         return {
             title: this.model.get('title'),
-            count: this.model.get('count')
+            count: this.model.get('count'),
+            svg: require('svg-sprite!../assets/icons/cross-lg.svg')
         }
     },
 
