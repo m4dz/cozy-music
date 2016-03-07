@@ -4,7 +4,7 @@ import application from '../application';
 
 const PlaylistView = Mn.ItemView.extend({
     
-    template: require('views/templates/playlist'),
+    template: require('./templates/playlist'),
 
     tagName: 'p',
     

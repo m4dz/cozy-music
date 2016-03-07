@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import Playlist from '../models/playlist';
+import cozysdk from 'cozysdk-client';
 
 
 const Playlists = Backbone.Collection.extend({

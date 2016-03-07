@@ -4,7 +4,7 @@ import application from '../application';
 
 const TrackView = Mn.ItemView.extend({
     
-    template: require('views/templates/track'),
+    template: require('./templates/track'),
 
     tagName: 'tr',
 

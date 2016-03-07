@@ -6,7 +6,7 @@ import application from '../application';
 
 const Content = Mn.LayoutView.extend({
     
-    template: require('views/templates/content'),
+    template: require('./templates/content'),
 
     regions: {
         header: '[role="header"]',

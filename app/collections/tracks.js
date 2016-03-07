@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import Track from '../models/track';
+import cozysdk from 'cozysdk-client';
 
 
 const Tracks = Backbone.Collection.extend({

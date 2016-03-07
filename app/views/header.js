@@ -3,7 +3,7 @@ import application from '../application';
 
 const Header = Mn.ItemView.extend({
 
-    template: require('views/templates/header'),
+    template: require('./templates/header'),
     
     initialize: function() {
         this.model = application.headerInfos;

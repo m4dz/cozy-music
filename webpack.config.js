@@ -1,3 +1,5 @@
+var path = require('path');
+
 var webpack = require('webpack');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -11,11 +13,16 @@ var optimize = process.env.OPTIMIZE === 'true';
 /**
  * Loaders used by webpack
  *
+ * - CSS and images files from `vendor` are excluded
+ * - stylesheets are optimized via cssnano, minus svgo and autoprefixer that are
+ * customized via PostCSS
+ * - images are cache-busted in production build
  */
-var css = require("!raw!sass!./file.scss");
+var cssOptions = optimize? 'css?-svgo&-autoprefixer&-mergeRules!postcss':'css';
+var imgPath = 'img/' + '[name]' + (optimize? '.[hash]': '') + '.[ext]';
 var loaders = [
     {
-        test: /\.js?$/,
+        test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         query: {
@@ -23,8 +30,21 @@ var loaders = [
         }
     },
     {
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        test: /\.css$/,
+        exclude: /vendor/,
+        loader: ExtractTextPlugin.extract('style', cssOptions)
+    },
+    {
+        test: /\.jst$/,
+        loader: "underscore-template-loader" 
+    },
+    {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract('style', cssOptions + '!stylus')
+    },
+    {
+        test: /\.(png|gif|jpe?g|svg)$/i,
+        loader: 'file?name=' + imgPath
     }
 ];
 
@@ -47,11 +67,19 @@ var loaders = [
  */
 var plugins = [
     new ExtractTextPlugin(optimize? 'app.[hash].css' : 'app.css'),
-];
-
-var postcss = [
-    require('autoprefixer')(['last 2 versions']),
-    require('css-mqpacker')
+    new CopyPlugin([
+        { 
+            from: 'app/assets/index.html' 
+        },
+        { 
+            from: 'app/assets/fonts',
+            to: 'fonts'
+        }
+    ]),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        _: "underscore"
+    })
 ];
 
 if (optimize) {
@@ -82,13 +110,28 @@ if (optimize) {
     ]);
 }
 
+/**
+ * PostCSS Config
+ *
+ * - autoprefixer to add vendor prefixes for last 2 versions
+ * - mqpacker to bring together all MQ rule's set
+ */
+var postcss = [
+    require('autoprefixer')(['last 2 versions']),
+    require('css-mqpacker')
+];
 
+/**
+ * Webpack config
+ *
+ * - output to `public` dir
+ * - cache-bust assets when build for production
+ */
 module.exports = {
     entry: './app/initialize',
     output: {
         path: path.join(optimize? '../build/client' : '', 'public'),
         filename: optimize? 'app.[hash].js' : 'app.js',
-        chunkFilename: optimize? 'register.[hash].js' : 'register.js'
     },
     resolve: {
         extensions: ['', '.js', '.sass', '.jst']

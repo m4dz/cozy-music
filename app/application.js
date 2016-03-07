@@ -4,6 +4,7 @@ import Tracks from './collections/tracks';
 import Playlists from './collections/playlists';
 import AppLayout from './views/app_layout';
 
+require('./styles/app.styl');
 
 const Application = Mn.Application.extend({
 

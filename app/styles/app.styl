@@ -1,0 +1,38 @@
+$background-dark = #eff1f4
+$border-color = #cedae4
+$white = #ffffff
+$blue = #0dbabe
+$text-dark = #32363f
+$text-light = #788195
+$text = #92a0b2
+$red = #ef4c57
+
+@import 'reset'
+global-reset()
+
+@font-face
+    font-family 'SSP-it'
+    font-style normal
+    src url('/apps/Cozic-v2/fonts/SourceSansPro-Italic.ttf')
+@font-face
+    font-family 'SSP-reg'
+    font-style normal
+    src url('/apps/Cozic-v2/fonts/SourceSansPro-Regular.ttf')
+@font-face
+    font-family 'SSP-sb'
+    font-style normal
+    src url('/apps/Cozic-v2/fonts/SourceSansPro-Semibold.ttf')
+
+html, body
+    height: 100%
+    font-family: 'SSP-reg'
+    overflow: hidden
+
+div[role='application']
+    height: 100%
+    width: 100%
+    display: flex
+
+@import 'content'
+@import 'toolbar'
+@import 'player'

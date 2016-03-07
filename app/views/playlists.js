@@ -4,7 +4,7 @@ import application from '../application';
 
 const Playlists = Mn.CompositeView.extend({
 
-    template: require('views/templates/playlists'),
+    template: require('./templates/playlists'),
 
     childViewContainer: '#playlist-list',
 

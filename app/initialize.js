@@ -1,4 +1,6 @@
 import application from './application';
 
 
-application.start();
+document.addEventListener('DOMContentLoaded', function () {
+	application.start();
+});
