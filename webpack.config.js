@@ -19,7 +19,6 @@ var optimize = process.env.OPTIMIZE === 'true';
  * - images are cache-busted in production build
  */
 var cssOptions = optimize? 'css?-svgo&-autoprefixer&-mergeRules!postcss':'css';
-var imgPath = 'img/' + '[name]' + (optimize? '.[hash]': '') + '.[ext]';
 var loaders = [
     {
         test: /\.js$/,
@@ -30,21 +29,12 @@ var loaders = [
         }
     },
     {
-        test: /\.css$/,
-        exclude: /vendor/,
-        loader: ExtractTextPlugin.extract('style', cssOptions)
-    },
-    {
         test: /\.jst$/,
         loader: "underscore-template-loader" 
     },
     {
         test: /\.styl$/,
         loader: ExtractTextPlugin.extract('style', cssOptions + '!stylus')
-    },
-    {
-        test: /\.(png|gif|jpe?g|svg)$/i,
-        loader: 'file?name=' + imgPath
     }
 ];
 

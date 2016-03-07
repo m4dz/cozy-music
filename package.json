@@ -32,10 +32,10 @@
     "css-mqpacker": "4.0.0",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
-    "normalize.css": "^3.0.3",
     "postcss-loader": "0.8.1",
     "style-loader": "0.13.0",
     "stylus-loader": "1.5.1",
+    "svg-sprite-loader": "0.0.16",
     "underscore-template-loader": "^0.7.0",
     "url-loader": "0.5.7",
     "webpack": "^1.12.14"
