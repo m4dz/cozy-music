@@ -4,7 +4,7 @@ import application from '../application';
 const Header = Mn.ItemView.extend({
 
     template: require('./templates/header'),
-    
+
     initialize: function() {
         this.model = application.headerInfos;
         if (this.model) {
@@ -15,12 +15,10 @@ const Header = Mn.ItemView.extend({
     serializeData: function() {
         return {
             title: this.model.get('title'),
-            count: this.model.get('count'),
-            svg: require('svg-sprite!../assets/icons/cross-lg.svg')
+            count: this.model.get('count')
         }
     },
 
 });
 
 export default Header;
-
