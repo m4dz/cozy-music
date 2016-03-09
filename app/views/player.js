@@ -10,7 +10,11 @@ const Player = Mn.LayoutView.extend({
         currentTime: '#current-time',
         totalTime: '#total-time',
         progress: '#progress',
-        playButton: '#play'
+        progressBar: '#progress-bar',
+        volume: '#volume',
+        volumeBar: '#volume-bar',
+        playButton: '#play',
+        trackname: '#trackname'
     },
 
     events: {
@@ -18,6 +22,7 @@ const Player = Mn.LayoutView.extend({
         'click #play': 'toggle',
         'click #next': 'next',
         'click #progress-bar': 'scroll',
+        'click #volume-bar': 'volChange'
     },
 
     onRender: function() {
@@ -25,11 +30,22 @@ const Player = Mn.LayoutView.extend({
         audio.ontimeupdate = this.timeupdate
     },
 
-    play: function(url) {
+    play: function(artist, title, url) {
         const audio = this.ui.player.get(0);
         audio.src = url;
         audio.load();
         audio.play();
+        this.ui.playButton.children('use').attr(
+            'xlink:href', 
+            require('../assets/icons/pause-lg.svg')
+        );
+        let text;
+        if (artist) {
+            text = artist + ' - ' + title;
+        } else {
+            text = title;
+        }
+        this.ui.trackname.text(text);
     },
 
     prev: function() {
@@ -40,23 +56,39 @@ const Player = Mn.LayoutView.extend({
         
     },
 
-    scroll: function() {
-        
+    scroll: function(e) {
+        const audio = this.ui.player.get(0);
+        const bar = this.ui.progressBar.get(0);
+        const newTime = audio.duration * ((e.pageX - bar.offsetLeft) / bar.clientWidth);
+        audio.currentTime = newTime;
+    },
+
+    volChange: function(e) {
+        console.log(e.which);
+        if(!e.which==1) {
+            return;
+        }
+        const audio = this.ui.player.get(0);
+        const bar = this.ui.volumeBar.get(0);
+        const volume = (e.pageX - bar.offsetLeft) / bar.clientWidth;
+        audio.volume = volume;
+        const percent = volume * 100 + '%';
+        this.ui.volume.width(percent);
     },
 
     toggle: function() {
         const audio = this.ui.player.get(0);
         if (audio.paused && audio.src) {
             audio.play();
-            this.ui.playButton.children().attr(
+            this.ui.playButton.children('use').attr(
                 'xlink:href', 
-                require('svg-sprite!../assets/icons/pause-lg.svg')
+                require('../assets/icons/pause-lg.svg')
             );
         } else if (audio.src) {
             audio.pause();
-            this.ui.playButton.children().attr(
+            this.ui.playButton.children('use').attr(
                 'xlink:href', 
-                require('svg-sprite!../assets/icons/play-lg.svg')
+                require('../assets/icons/play-lg.svg')
             );
         }
     },

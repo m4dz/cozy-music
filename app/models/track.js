@@ -60,7 +60,9 @@ const Track = Backbone.Model.extend({
         this.set('plays', this.get('plays') +1);
         this.save();
         const player = application.appLayout.getRegion('player').currentView;
-        player.play(url);
+        const artist = this.get('metas').artist;
+        const title = this.get('metas').title;
+        player.play(artist, title, url);
     },
 
     getStreamAndPlay: function () {
