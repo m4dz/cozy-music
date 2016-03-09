@@ -1,5 +1,6 @@
 $background-dark = #eff1f4
 $border-color = #cedae4
+$grey = #a7b5c6
 $white = #ffffff
 $blue = #0dbabe
 $text-dark = #32363f
@@ -32,6 +33,16 @@ div[role='application']
     height: 100%
     width: 100%
     display: flex
+    
+placeholder()
+    &::-webkit-input-placeholder
+        {block}
+    &:-moz-placeholder
+        {block}
+    &::-moz-placeholder
+        {block}
+    &:-ms-input-placeholder
+        {block}
 
 @import 'content'
 @import 'toolbar'

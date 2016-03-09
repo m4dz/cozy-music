@@ -10,7 +10,8 @@ const Toolbar = Mn.LayoutView.extend({
 
     ui: {
         importSC: '#import-sc',
-        importText: '#import-text'
+        search: '#search',
+        searchText: '#search-text'
     },
 
     regions: {
@@ -19,7 +20,7 @@ const Toolbar = Mn.LayoutView.extend({
 
     events: {
         'click #sync-files': 'sync',
-        'click #import-sc': 'importSC'
+        'click #search': 'search'
     },
 
     sync: function() {
@@ -34,6 +35,17 @@ const Toolbar = Mn.LayoutView.extend({
         let importSC = this.ui.importSC
         scdl.import(this.ui.importText.val());
         //importSC.addClass('focused');
+    },
+
+    search: function() {
+        let search = this.ui.search;
+        let searchText = this.ui.searchText;
+        search.addClass('focused');
+        search.focusout(function() {
+            if (searchText.val() == '') {
+                search.removeClass('focused');
+            }
+        });
     }
 });
 

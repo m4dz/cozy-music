@@ -6,10 +6,16 @@
         <p>SYNC WITH YOUR FILES</p>
     </div>
     <div class="button" id="import-sc">
+        <svg>
+            <use xlink:href="<%= require('../../assets/icons/stream-sm.svg') %>"/>
+        </svg>
         <p>ADD STREAM TRACK</p>
     </div>
-    <div class="input">
-        <input id="import-text" type="text" placeholder="enter a soundcloud link">
+    <div id="search" class="input">
+        <input id="search-text" type="text" placeholder="Search">
+        <svg>
+            <use xlink:href="<%= require('../../assets/icons/magnifier-sm.svg') %>"/>
+        </svg>
     </div>
 </div>
 
