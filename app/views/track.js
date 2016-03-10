@@ -13,6 +13,8 @@ const TrackView = Mn.ItemView.extend({
         'click .delete': 'delete'
     },
 
+    modelEvents: { change: 'render' },
+
     play: function (e) {
         const tracks = application.appLayout.getTracksView();
         application.upNext.currentIndex = tracks.collection.indexOf(this.model);
@@ -28,12 +30,6 @@ const TrackView = Mn.ItemView.extend({
         item.set('hidden', true);
         item.save();
         application.allTracks.remove(item);
-    },
-    
-    initialize: function () {
-        if (this.model) {
-            this.model.on('change', this.render, this);
-        }
     },
     
     serializeData: function() {
