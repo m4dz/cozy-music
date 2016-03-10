@@ -40,10 +40,10 @@ const Toolbar = Mn.LayoutView.extend({
     search: function() {
         let search = this.ui.search;
         let searchText = this.ui.searchText;
-        search.addClass('focused');
+        search.addClass('input-focused');
         search.focusout(function() {
             if (searchText.val() == '') {
-                search.removeClass('focused');
+                search.removeClass('input-focused');
             }
         });
     }

@@ -9,9 +9,13 @@ require('./styles/app.styl');
 const Application = Mn.Application.extend({
 
 	initialize: function () {
-		this.allTracks = new Tracks();
-        this.allTracks.fetch();
-        this.upNext = new Tracks();
+		this.allTracks = new Tracks([], { type: 'all' });
+        this.upNext = {};
+        this.allTracks.fetch({
+            success: function() {
+                app.upNext = app.allTracks.clone(true);
+            }
+        });
 
         this.allPlaylists = new Playlists();
         this.allPlaylists.fetch();
@@ -28,7 +32,13 @@ const Application = Mn.Application.extend({
         }
         this.appLayout = new AppLayout();
         this.appLayout.render();
+    },
+
+    switchPlaylist: function(collection) {
+        return this.appLayout.content.currentView.switchPlaylist(collection);
     }
 });
 
-export default new Application();
+const app = new Application();
+
+export default app;

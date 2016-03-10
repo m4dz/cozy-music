@@ -19,6 +19,10 @@ const AppLayout = Mn.LayoutView.extend({
         this.showChildView('content', new ContentView());
         this.showChildView('player', new PlayerView());
         this.showChildView('toolbar', new ToolbarView());
+    },
+
+    getTracksView: function() {
+        return this.content.currentView.tracks.currentView;
     }
 });
 

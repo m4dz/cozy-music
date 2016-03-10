@@ -15,15 +15,19 @@ const Content = Mn.LayoutView.extend({
 
     onBeforeShow: function() {
         this.showChildView('header', new HeaderView());
-        this.showChildView('tracks', new TracksView());
+        this.switchPlaylist(application.allTracks);
     },
 
-    onRender: function() {
-        application.allTracks.on('add', function() {
-            application.headerInfos.set('count', application.allTracks.length);
+    switchPlaylist: function (collection) {
+        console.log(collection)
+        this.showChildView('tracks',
+            new TracksView({ collection: collection})
+        );
+        collection.on('add', function() {
+            application.headerInfos.set('count', collection.length);
         });
-        application.allTracks.on('remove', function() {
-            application.headerInfos.set('count', application.allTracks.length);
+        collection.on('remove', function() {
+            application.headerInfos.set('count', collection.length);
         });
     }
 });

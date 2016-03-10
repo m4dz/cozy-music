@@ -44,7 +44,7 @@
   "scripts": {
     "build": "env OPTIMIZE=true webpack",
     "watch": "webpack --display-modules --display-chunks --watch",
-    "clean": "rm -rf build"
+    "clean": "rm -rf public"
   },
   "cozy-permissions": {
     "File": {

@@ -6,8 +6,11 @@ import cozysdk from 'cozysdk-client';
 const Tracks = Backbone.Collection.extend({
     model: Track,
 
-    initialize: function() {
+    initialize: function(models, options) {
         this.on('add', this.onAdd, this);
+        if (options) {
+            this.type = options.type;
+        }
     },
 
     onAdd: function(track) {
@@ -21,9 +24,9 @@ const Tracks = Backbone.Collection.extend({
     },
     
     sync: function (method, model, options) {
-        if (method == 'read') {
+        if (method == 'read' && this.type) {
             console.log('fetch');
-            cozysdk.run('Track', 'playable', {}, (err, res) => {
+            cozysdk.run('Track', this.type, {}, (err, res) => {
                 console.log('TRACKS fetch', err, res);
                 if (res) {
                     const tracks = JSON.parse('' + res);
@@ -33,6 +36,16 @@ const Tracks = Backbone.Collection.extend({
                     options.success();
                 }
             });
+        }
+    },
+
+    clone: function(deep) {
+        if(deep) {
+            return new this.constructor(
+                _.map(this.models, function(m) { return m.clone(); })
+            );
+        }else{
+            return Backbone.Collection.prototype.clone();
         }
     }
 });

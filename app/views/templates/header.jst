@@ -2,12 +2,15 @@
 <% if (title == "Up Next") { %>
     <div class="button" id="reset-upnext">
         <svg>
-        	<use xlink:href="<%= require('../../assets/icons/cross-lg.svg') %>"/>
+            <use xlink:href="<%= require('../../assets/icons/cross-sm.svg') %>"/>
         </svg>
         <p>RESET UP NEXT</p>
     </div>
 <% } else if (title != "All Songs") { %>
-    <div class="button" id="reset-upnext">
+    <div class="button" id="delete-playlist">
+        <svg>
+            <use xlink:href="<%= require('../../assets/icons/trash-sm.svg') %>"/>
+        </svg>
         <p>DELETE PLAYLIST</p>
     </div>
 <% }%>

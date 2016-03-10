@@ -14,6 +14,8 @@ const TrackView = Mn.ItemView.extend({
     },
 
     play: function (e) {
+        const tracks = application.appLayout.getTracksView();
+        application.upNext.currentIndex = tracks.collection.indexOf(this.model);
         this.model.getStreamAndPlay();
         $(e.currentTarget)
             .addClass('playing')

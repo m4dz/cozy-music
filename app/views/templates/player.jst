@@ -1,7 +1,14 @@
 <audio id="player" autoplay preload autobuffer></audio>
 <div class="player">
     <div class="play-controls">
-        <img src="album"></img>
+        <% if (false) { %>
+            <img class="album" src="album"></img>
+        <% } else { %>
+            <svg class="album">
+                <use xlink:href="<%= require('../../assets/icons/music-lg.svg') %>"/>
+            </svg>
+        <% }%>
+
         <svg id="prev">
             <use xlink:href="<%= require('../../assets/icons/prev-lg.svg') %>"/>
         </svg>
@@ -14,13 +21,13 @@
     </div>
     <div class="timeline">
         <div class="text-container">
-            <p id="trackname">Creeds - Extracapsule</p>
+            <p id="trackname">Pas de musique :(</p>
         </div>
         <div id="progress-bar">
             <div id="progress"></div>
         </div>
-        <p id="current-time">1:12</p>
-        <p id="total-time">4:14</p>
+        <p id="current-time">0.00</p>
+        <p id="total-time">0:00</p>
     </div>
     <div class="controls">
         <svg id="shuffle">

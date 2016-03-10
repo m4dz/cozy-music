@@ -19,11 +19,17 @@ const Playlists = Mn.CompositeView.extend({
     },
 
     changePlaylist: function(e) {
-        $(e.currentTarget)
-            .addClass('selected')
-            .siblings()
-            .removeClass('selected');
+        const playlist = $(e.currentTarget);
+        $(".playlists p").removeClass('selected');
+        playlist.addClass('selected');
         application.headerInfos.set('title', e.currentTarget.innerHTML);
+
+        if (playlist.attr('id') == "up-next") {
+            application.switchPlaylist(application.upNext);
+        } else if (playlist.attr('id') == "all-song") {
+            application.switchPlaylist(application.allTracks);
+        }
+        
     },
     
     initialize: function() {
