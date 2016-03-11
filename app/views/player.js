@@ -22,14 +22,15 @@ const Player = Mn.LayoutView.extend({
         'click #play': 'toggle',
         'click #next': 'next',
         'click #progress-bar': 'scroll',
-        'click #volume-bar': 'volChange'
+        'click #volume-bar': 'changeVol'
     },
 
     onRender: function() {
         const audio = this.ui.player.get(0);
         audio.ontimeupdate = this.timeupdate;
-        audio.volume = 0;
         audio.onended = this.next
+        audio.onvolumechange = this.onVolumeChange;
+        audio.volume = 0.5;
         this.listenTo(application.upNext, 'change:currentTrack', function() {
             const upNext = application.upNext;
             const currentTrack = upNext.getAttr('currentTrack');
@@ -92,17 +93,19 @@ const Player = Mn.LayoutView.extend({
         audio.currentTime = newTime;
     },
 
-    volChange: function(e) {
-        console.log(e.which);
-        if(!e.which==1) {
-            return;
-        }
+    onVolumeChange: function() {
+        const player = application.appLayout.getRegion('player').currentView;
+        const audio = player.ui.player.get(0);
+        const bar = player.ui.volumeBar.get(0);
+        const percent = audio.volume * 100 + '%';
+        player.ui.volume.width(percent);
+    },
+
+    changeVol: function(e) {
         const audio = this.ui.player.get(0);
         const bar = this.ui.volumeBar.get(0);
         const volume = (e.pageX - bar.offsetLeft) / bar.clientWidth;
         audio.volume = volume;
-        const percent = volume * 100 + '%';
-        this.ui.volume.width(percent);
     },
 
     toggle: function() {
