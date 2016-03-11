@@ -28,7 +28,7 @@ const Player = Mn.LayoutView.extend({
     onRender: function() {
         const audio = this.ui.player.get(0);
         audio.ontimeupdate = this.timeupdate;
-        audio.onended = this.next
+        audio.onended = this.next;
         audio.onvolumechange = this.onVolumeChange;
         audio.volume = 0.5;
         this.listenTo(application.upNext, 'change:currentTrack', function() {
