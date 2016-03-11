@@ -26,7 +26,9 @@ const Header = Mn.ItemView.extend({
     },
 
     resetUpNext: function() {
+        application.upNext.setAttr('currentTrack', undefined);
         application.upNext.reset();
+        application.appLayout.getRegion('player').currentView.render();
     },
 
 });

@@ -21,10 +21,9 @@ const TracksView = Mn.CompositeView.extend({
     },
 
     setCurrentTrack: function() {
-        if (application.upNext && application.upNext.attr('currentTrack')) {
-            const track = application.upNext.attr('currentTrack');
+        if (application.upNext && application.upNext.getAttr('currentTrack')) {
+            const track = application.upNext.getAttr('currentTrack');
             const item = this.children.findByModel(track);
-            console.log(track)
             item.$el.addClass('playing').siblings().removeClass('playing');
         }
     }

@@ -56,17 +56,10 @@ const Track = Backbone.Model.extend({
         }
     },
 
-    play: function (url) {
+    getStream: function (callback) {
+        const ressource = this.get('ressource');
         this.set('plays', this.get('plays') +1);
         this.save();
-        const player = application.appLayout.getRegion('player').currentView;
-        const artist = this.get('metas').artist;
-        const title = this.get('metas').title;
-        player.play(artist, title, url);
-    },
-
-    getStreamAndPlay: function () {
-        const ressource = this.get('ressource');
         switch (ressource.type) {
             case 'file':
                 const id = this.get('ressource').fileID;
@@ -74,13 +67,13 @@ const Track = Backbone.Model.extend({
                     console.log('FILEURL', err, res);
                     if (res) {
                         let url = 'http://' + res.split('@')[1]; // to delete in prod
-                        this.play(url);
+                        callback(url);
                     }
                 })
                 break;
             case 'soundcloud':
                 const url = this.get('ressource').url;
-                this.play(scdl.addClientID(url));
+                callback(scdl.addClientID(url));
                 break;
         }
     }

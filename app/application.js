@@ -11,6 +11,13 @@ const Application = Mn.Application.extend({
     initialize: function () {
         this.allTracks = new Tracks([], { type: 'all' });
         this.upNext = new Tracks();
+        this.upNext.on('change:currentTrack', function() {
+            const upNext = app.upNext;
+            const currentTrack = upNext.getAttr('currentTrack');
+            if (!upNext.contains(currentTrack)) {
+                upNext.push(currentTrack);
+            }
+        });
         this.allTracks.fetch({
             success: function() {
                 app.allTracks.each(function(track) {

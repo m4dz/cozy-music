@@ -14,18 +14,18 @@ const Tracks = Backbone.Collection.extend({
         this._attributes = {}
     },
 
-    attr: function(prop, value) {
-        if (value === undefined) {
-            return this._attributes[prop]
-        } else {
-            this._attributes[prop] = value;
-            this.trigger('change:' + prop, value);
-        }
+    setAttr: function(prop, value) {
+        this._attributes[prop] = value;
+        this.trigger('change:' + prop, value);
+    },
+
+    getAttr: function(prop) {
+        return this._attributes[prop];
     },
 
     onAdd: function(track) {
         if (!track.get('_id')) {
-            track.save()
+            track.save();
         }
     },
     
@@ -46,16 +46,6 @@ const Tracks = Backbone.Collection.extend({
                     options.success();
                 }
             });
-        }
-    },
-
-    clone: function(deep) {
-        if(deep) {
-            return new this.constructor(
-                _.map(this.models, function(m) { return m.clone(); })
-            );
-        }else{
-            return Backbone.Collection.prototype.clone();
         }
     }
 });

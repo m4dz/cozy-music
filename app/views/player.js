@@ -27,19 +27,21 @@ const Player = Mn.LayoutView.extend({
 
     onRender: function() {
         const audio = this.ui.player.get(0);
-        audio.ontimeupdate = this.timeupdate
+        audio.ontimeupdate = this.timeupdate;
+        audio.volume = 0;
+        audio.onended = this.next
+        this.listenTo(application.upNext, 'change:currentTrack', function() {
+            const upNext = application.upNext;
+            const currentTrack = upNext.getAttr('currentTrack');
+            if (currentTrack) {
+                this.load(currentTrack);
+            }
+        });
     },
 
-    play: function(artist, title, url) {
-        const audio = this.ui.player.get(0);
-        audio.volume = 0;
-        audio.src = url;
-        audio.load();
-        audio.play();
-        this.ui.playButton.children('use').attr(
-            'xlink:href', 
-            require('../assets/icons/pause-lg.svg')
-        );
+    load: function(track) {
+        const title = track.get('metas').title;
+        const artist = track.get('metas').artist;
         let text;
         if (artist) {
             text = artist + ' - ' + title;
@@ -47,14 +49,40 @@ const Player = Mn.LayoutView.extend({
             text = title;
         }
         this.ui.trackname.text(text);
+        track.getStream(function(url) {
+            application.appLayout.getRegion('player').currentView.play(url);
+        });
+    },
+
+    play: function(url) {
+        const audio = this.ui.player.get(0);
+        audio.src = url;
+        audio.load();
+        audio.play();
+        this.ui.playButton.children('use').attr(
+            'xlink:href', 
+            require('../assets/icons/pause-lg.svg')
+        );
     },
 
     prev: function() {
-
+        const upNext = application.upNext;
+        const currentTrack = upNext.getAttr('currentTrack');
+        const index = upNext.indexOf(currentTrack);
+        const prev = upNext.at(index - 1)
+        if (prev) {
+            upNext.setAttr('currentTrack', prev);
+        }
     },
 
     next: function() {
-        
+        const upNext = application.upNext;
+        const currentTrack = upNext.getAttr('currentTrack');
+        const index = upNext.indexOf(currentTrack);
+        const next = upNext.at(index + 1)
+        if (next) {
+            upNext.setAttr('currentTrack', next);
+        }
     },
 
     scroll: function(e) {

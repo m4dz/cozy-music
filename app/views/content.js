@@ -23,13 +23,15 @@ const Content = Mn.LayoutView.extend({
         this.showChildView('tracks',
             new TracksView({ collection: collection})
         );
-        collection.on('add', function() {
+        this.stopListening();
+        application.headerInfos.set('count', collection.length);
+        this.listenTo(collection, 'add', function() {
             application.headerInfos.set('count', collection.length);
         });
-        collection.on('remove', function() {
+        this.listenTo(collection, 'remove', function() {
             application.headerInfos.set('count', collection.length);
         });
-        collection.on('reset', function() {
+        this.listenTo(collection, 'reset', function() {
             application.headerInfos.set('count', collection.length);
         });
     }
