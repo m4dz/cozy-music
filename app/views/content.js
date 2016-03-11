@@ -29,6 +29,9 @@ const Content = Mn.LayoutView.extend({
         collection.on('remove', function() {
             application.headerInfos.set('count', collection.length);
         });
+        collection.on('reset', function() {
+            application.headerInfos.set('count', collection.length);
+        });
     }
 });
 

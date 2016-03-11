@@ -16,13 +16,8 @@ const TrackView = Mn.ItemView.extend({
     modelEvents: { change: 'render' },
 
     play: function (e) {
-        const tracks = application.appLayout.getTracksView();
-        application.upNext.currentIndex = tracks.collection.indexOf(this.model);
+        application.upNext.attr('currentTrack', this.model);
         this.model.getStreamAndPlay();
-        $(e.currentTarget)
-            .addClass('playing')
-            .siblings()
-            .removeClass('playing');
     },
     
     delete: function (e) {

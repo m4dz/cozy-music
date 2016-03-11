@@ -11,6 +11,16 @@ const Tracks = Backbone.Collection.extend({
         if (options) {
             this.type = options.type;
         }
+        this._attributes = {}
+    },
+
+    attr: function(prop, value) {
+        if (value === undefined) {
+            return this._attributes[prop]
+        } else {
+            this._attributes[prop] = value;
+            this.trigger('change:' + prop, value);
+        }
     },
 
     onAdd: function(track) {

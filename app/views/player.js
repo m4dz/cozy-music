@@ -32,6 +32,7 @@ const Player = Mn.LayoutView.extend({
 
     play: function(artist, title, url) {
         const audio = this.ui.player.get(0);
+        audio.volume = 0;
         audio.src = url;
         audio.load();
         audio.play();

@@ -1,15 +1,21 @@
 import Mn from 'backbone.marionette';
 import application from '../application';
+import Tracks from '../collections/tracks';
 
 const Header = Mn.ItemView.extend({
 
     template: require('./templates/header'),
 
+    events: {
+        'click #reset-upnext': 'resetUpNext',
+        'click #delete-playlist': 'deletePlaylist'
+    },
+
+    //modelEvents: { change: 'render' }, // DON'T WORK
+
     initialize: function() {
         this.model = application.headerInfos;
-        if (this.model) {
-            this.model.on('change', this.render);
-        }
+        this.listenTo(this.model, 'change', this.render)
     },
 
     serializeData: function() {
@@ -17,6 +23,10 @@ const Header = Mn.ItemView.extend({
             title: this.model.get('title'),
             count: this.model.get('count')
         }
+    },
+
+    resetUpNext: function() {
+        application.upNext.reset();
     },
 
 });
