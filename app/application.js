@@ -10,11 +10,11 @@ const Application = Mn.Application.extend({
 
     initialize: function () {
         this.allTracks = new Tracks([], { type: 'all' });
+        this.upNext = new Tracks();
         this.allTracks.fetch({
             success: function() {
-                app.upNext = app.allTracks.clone(true);
-                app.upNext.on("change:currentTrack", function() {
-                    app.appLayout.getTracksView().setCurrentTrack();
+                app.allTracks.each(function(track) {
+                    app.upNext.add(track);
                 });
             }
         });
