@@ -2,6 +2,7 @@ import Mn from 'backbone.marionette';
 import { syncFiles } from '../libs/file';
 import scdl from '../libs/soundcloud';
 import PlaylistsView from './playlists';
+import NotificationView from './notification';
 
 
 const Toolbar = Mn.LayoutView.extend({
@@ -16,6 +17,7 @@ const Toolbar = Mn.LayoutView.extend({
 
     regions: {
         playlists: '.playlists',
+        notification: '[role="notification"]'
     },
 
     events: {
@@ -31,10 +33,16 @@ const Toolbar = Mn.LayoutView.extend({
         this.showChildView('playlists', new PlaylistsView());
     },
 
+    showNotification: function(msg) {
+        this.showChildView(
+            'notification',
+            new NotificationView({ message: msg})
+        );
+    },
+
     importSC: function() {
         let importSC = this.ui.importSC
         scdl.import(this.ui.importText.val());
-        //importSC.addClass('focused');
     },
 
     search: function() {

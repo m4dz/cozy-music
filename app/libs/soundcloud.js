@@ -1,5 +1,6 @@
 import Track from '../models/track';
 import application from '../application';
+import cozysdk from 'cozysdk-client';
 
 
 const api = 'https://api.soundcloud.com';

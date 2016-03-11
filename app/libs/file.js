@@ -1,5 +1,6 @@
 import Track from '../models/track';
 import application from '../application';
+import cozysdk from 'cozysdk-client';
 
 
 export const syncFiles = function () {
@@ -29,6 +30,9 @@ function getAllTracksFileId(musicFiles) {
             }
             saveTrack(musicFiles, tracksFileId);
             deleteTrack(allTracksFiles, musicFilesFileId);
+            const msg = 'All your audio files have been added';
+            application.appLayout.getRegion('toolbar')
+                .currentView.showNotification(msg);
         }
     });
 }

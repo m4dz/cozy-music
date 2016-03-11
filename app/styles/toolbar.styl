@@ -121,7 +121,7 @@ div[role='toolbar']
 
         h4
             margin-top: 33px
-            margin-bottom: 0px;
+            margin-bottom: 0px
             padding-left: 32px
             height: 36px
             font-family: "SSP-sb"
@@ -142,3 +142,48 @@ div[role='toolbar']
             border-top-right-radius: 2px
             border-bottom-right-radius: 2px
             background-color: #f14a53
+            
+    .notification
+        position: absolute
+        left: 16px
+        bottom: 93px
+        width: 248px
+        height: 66px
+        border-radius: 3px
+        background-color: #696d78
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1)
+        opacity: 0
+        display: none
+        
+        p
+            position: absolute
+            top: 10px
+            left: 64px
+            padding-right: 32px
+            height: 42px
+            font-family: "SSP-reg"
+            font-size: 16px
+            line-height: 1.3
+            color: #ffffff
+        
+        svg
+            position: absolute
+            left: 14px
+            top: 13px
+            width: 40px
+            height: 40px
+            
+            path
+                fill: white
+                
+    .show
+        animation-timing-function: ease;
+        animation-name: show;
+        animation-duration: 3s;
+
+@keyframes show {
+    0%   {opacity: 0}
+    10%  {opacity: 1}
+    90%  {opacity: 1}
+    100% {opacity: 0}
+}

@@ -1,6 +1,5 @@
 import Backbone from 'backbone';
 import scdl from '../libs/soundcloud';
-import application from '../application';
 import cozysdk from 'cozysdk-client';
 
 const Track = Backbone.Model.extend({
