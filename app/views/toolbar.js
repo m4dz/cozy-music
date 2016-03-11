@@ -11,6 +11,7 @@ const Toolbar = Mn.LayoutView.extend({
 
     ui: {
         importSC: '#import-sc',
+        importText: '#import-sc-text',
         search: '#search',
         searchText: '#search-text'
     },
@@ -22,6 +23,7 @@ const Toolbar = Mn.LayoutView.extend({
 
     events: {
         'click #sync-files': 'sync',
+        'click #import-sc': 'importStream',
         'click #search': 'search'
     },
 
@@ -30,7 +32,26 @@ const Toolbar = Mn.LayoutView.extend({
     },
 
     onRender: function() {
+        let ui = this.ui;
         this.showChildView('playlists', new PlaylistsView());
+        ui.importSC.focusout(function() {
+            if (ui.importText.val() == '') {
+                ui.importSC
+                    .addClass('button')
+                    .removeClass('input')
+                    .removeClass('input-focused');
+            }
+        });
+        ui.search.focusout(function() {
+            if (searchText.val() == '') {
+                ui.search.removeClass('input-focused');
+            }
+        });
+        ui.importText.keyup(function(e) {
+            if(e.keyCode == 13) {
+                scdl.import(ui.importText.val());
+            }
+        });
     },
 
     showNotification: function(msg) {
@@ -40,20 +61,15 @@ const Toolbar = Mn.LayoutView.extend({
         );
     },
 
-    importSC: function() {
-        let importSC = this.ui.importSC
-        scdl.import(this.ui.importText.val());
+    importStream: function() {
+        this.ui.importSC
+            .removeClass('button')
+            .addClass('input')
+            .addClass('input-focused');
     },
 
     search: function() {
-        let search = this.ui.search;
-        let searchText = this.ui.searchText;
-        search.addClass('input-focused');
-        search.focusout(function() {
-            if (searchText.val() == '') {
-                search.removeClass('input-focused');
-            }
-        });
+        this.ui.search.addClass('input-focused');
     }
 });
 

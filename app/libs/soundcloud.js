@@ -51,6 +51,7 @@ class Soundcloud {
             title: track.title,
             artist: track.user.username,
             genre: track.genre,
+            duration: track.duration
         });
         application.allTracks.add(newTrack);
     }

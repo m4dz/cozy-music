@@ -1,5 +1,6 @@
 import Mn from 'backbone.marionette';
 import application from '../application';
+import { timeToString } from '../libs/utils';
 
 
 const TrackView = Mn.ItemView.extend({
@@ -30,23 +31,21 @@ const TrackView = Mn.ItemView.extend({
     },
     
     serializeData: function() {
-        let number, title, artist, album;
-        if (this.model.get('metas').title) {
-            title = this.model.get('metas').title;
-        }
-
-        if (this.model.get('metas').album) {
-            album = this.model.get('metas').album;
-        }
-
-        if (this.model.get('metas').artist) {
-            artist = this.model.get('metas').artist;
+        const title = this.model.get('metas').title;
+        const album = this.model.get('metas').album;
+        const artist = this.model.get('metas').artist;
+        let duration;
+        if (this.model.get('metas').duration) {
+            duration = timeToString(this.model.get('metas').duration / 1000);
+        } else {
+            duration = '--:--';
         }
         return {
             number: 4,
             title: title,
             artist: artist,
-            album: album
+            album: album,
+            duration: duration
         };
     }
 });
