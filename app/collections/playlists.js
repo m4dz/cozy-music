@@ -27,7 +27,7 @@ const Playlists = Backbone.Collection.extend({
             cozysdk.run('Playlist', 'all', {}, (err, res) => {
                 console.log('Playlist fetched', err, res);
                 if (res) {
-                    const playlists = JSON.parse('' + res);
+                    let playlists = JSON.parse('' + res);
                     for (let i = 0; i < playlists.length; i++) {
                         this.add(playlists[i].value);
                     }

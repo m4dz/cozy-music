@@ -22,8 +22,8 @@ const TracksView = Mn.CompositeView.extend({
 
     setCurrentTrack: function() {
         if (application.upNext && application.upNext.getAttr('currentTrack')) {
-            const track = application.upNext.getAttr('currentTrack');
-            const item = this.children.findByModel(track);
+            let track = application.upNext.getAttr('currentTrack');
+            let item = this.children.findByModel(track);
             item.$el.addClass('playing').siblings().removeClass('playing');
         }
     }

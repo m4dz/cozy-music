@@ -3,11 +3,11 @@ import application from '../application';
 import cozysdk from 'cozysdk-client';
 
 
-export const syncFiles = function () {
+export function syncFiles() {
     cozysdk.run('File', 'music', {}, (err, res) => {
         console.log('syncFiles', err, res);
         if (res) {
-            const files = JSON.parse('' + res);
+            let files = JSON.parse('' + res);
             getAllTracksFileId(files);
         }
     });
@@ -20,7 +20,7 @@ function getAllTracksFileId(musicFiles) {
         let allTracksFiles = [];
         let musicFilesFileId = [];
         if (res) {
-            const tracks = JSON.parse('' + res);
+            let tracks = JSON.parse('' + res);
             for (let i = 0; i < tracks.length; i++) {
                 tracksFileId.push(tracks[i].value.ressource.fileID);
                 allTracksFiles.push(new Track(tracks[i].value));
@@ -30,7 +30,7 @@ function getAllTracksFileId(musicFiles) {
             }
             saveTrack(musicFiles, tracksFileId);
             deleteTrack(allTracksFiles, musicFilesFileId);
-            const msg = 'All your audio files have been added';
+            let msg = 'All your audio files have been added';
             application.appLayout.getRegion('toolbar')
                 .currentView.showNotification(msg);
         }
@@ -39,7 +39,7 @@ function getAllTracksFileId(musicFiles) {
 
 function deleteTrack(allTracks, musicFilesFileId) {
     for (let i = 0; i < allTracks.length; i++) {
-        const t = allTracks[i];
+        let t = allTracks[i];
         if (musicFilesFileId.indexOf(t.get('ressource').fileID) <= -1) { 
             t.destroy();
         }
@@ -47,12 +47,12 @@ function deleteTrack(allTracks, musicFilesFileId) {
 }
 
 function saveTrack(musicFiles, tracksFileId) {
-    const files = musicFiles;
+    let files = musicFiles;
     for (let i = 0; i < files.length; i++) {
-        const file = files[i].value;
-        const trackname = file.name; // TO DO : ID3TAG
-        const fileid = file._id;
-        const t = new Track({
+        let file = files[i].value;
+        let trackname = file.name; // TO DO : ID3TAG
+        let fileid = file._id;
+        let t = new Track({
             metas: { 
                 title: trackname
             },

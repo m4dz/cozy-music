@@ -22,7 +22,7 @@ const TrackView = Mn.ItemView.extend({
     
     delete: function (e) {
         console.log('delete')
-        const item = this.model;
+        let item = this.model;
         item.set('hidden', true);
         item.save();
         application.allTracks.remove(item);
@@ -31,9 +31,9 @@ const TrackView = Mn.ItemView.extend({
     },
     
     serializeData: function() {
-        const title = this.model.get('metas').title;
-        const album = this.model.get('metas').album;
-        const artist = this.model.get('metas').artist;
+        let title = this.model.get('metas').title;
+        let album = this.model.get('metas').album;
+        let artist = this.model.get('metas').artist;
         let duration;
         if (this.model.get('metas').duration) {
             duration = timeToString(this.model.get('metas').duration / 1000);

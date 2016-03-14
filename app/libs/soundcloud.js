@@ -22,7 +22,7 @@ class Soundcloud {
         cozysdk.run('Track', 'soundcloud', {}, (err, res) => {
             if (res) {
                 let exist = false;
-                const tracks = JSON.parse('' + res);
+                let tracks = JSON.parse('' + res);
                 for (let i = 0; i < tracks.length; i++) {
                     if (tracks[i].value.ressource.url == track.stream_url) {
                         exist = true;

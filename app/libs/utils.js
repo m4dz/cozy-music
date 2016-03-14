@@ -1,4 +1,4 @@
-export const timeToString = function (time) {
+export function timeToString(time) {
     var totalSec = Math.floor(time);
     var hours = parseInt( totalSec / 3600 ) % 24;
     var minutes = parseInt( totalSec / 60 ) % 60;

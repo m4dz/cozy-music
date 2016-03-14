@@ -44,9 +44,9 @@ const Playlists = Mn.CompositeView.extend({
     },
 
     changePlaylist: function(e) {
-        const playlist = $(e.currentTarget);
-        const playlists = $(".playlists p");
-        const index = playlists.index(playlist) - 2;
+        let playlist = $(e.currentTarget);
+        let playlists = $(".playlists p");
+        let index = playlists.index(playlist) - 2;
         playlists.removeClass('selected');
         playlist.addClass('selected');
         

@@ -27,14 +27,14 @@ const Player = Mn.LayoutView.extend({
     },
 
     onRender: function() {
-        const audio = this.ui.player.get(0);
+        let audio = this.ui.player.get(0);
         audio.ontimeupdate = this.timeupdate;
         audio.onended = this.next;
         audio.onvolumechange = this.onVolumeChange;
         audio.volume = 0.5;
         this.listenTo(application.upNext, 'change:currentTrack', function() {
-            const upNext = application.upNext;
-            const currentTrack = upNext.getAttr('currentTrack');
+            let upNext = application.upNext;
+            let currentTrack = upNext.getAttr('currentTrack');
             if (currentTrack) {
                 this.load(currentTrack);
             }
@@ -42,8 +42,8 @@ const Player = Mn.LayoutView.extend({
     },
 
     load: function(track) {
-        const title = track.get('metas').title;
-        const artist = track.get('metas').artist;
+        let title = track.get('metas').title;
+        let artist = track.get('metas').artist;
         let text;
         if (artist) {
             text = artist + ' - ' + title;
@@ -57,7 +57,7 @@ const Player = Mn.LayoutView.extend({
     },
 
     play: function(url) {
-        const audio = this.ui.player.get(0);
+        let audio = this.ui.player.get(0);
         audio.src = url;
         audio.load();
         audio.play();
@@ -68,49 +68,49 @@ const Player = Mn.LayoutView.extend({
     },
 
     prev: function() {
-        const upNext = application.upNext;
-        const currentTrack = upNext.getAttr('currentTrack');
-        const index = upNext.indexOf(currentTrack);
-        const prev = upNext.at(index - 1)
+        let upNext = application.upNext;
+        let currentTrack = upNext.getAttr('currentTrack');
+        let index = upNext.indexOf(currentTrack);
+        let prev = upNext.at(index - 1)
         if (prev) {
             upNext.setAttr('currentTrack', prev);
         }
     },
 
     next: function() {
-        const upNext = application.upNext;
-        const currentTrack = upNext.getAttr('currentTrack');
-        const index = upNext.indexOf(currentTrack);
-        const next = upNext.at(index + 1)
+        let upNext = application.upNext;
+        let currentTrack = upNext.getAttr('currentTrack');
+        let index = upNext.indexOf(currentTrack);
+        let next = upNext.at(index + 1)
         if (next) {
             upNext.setAttr('currentTrack', next);
         }
     },
 
     scroll: function(e) {
-        const audio = this.ui.player.get(0);
-        const bar = this.ui.progressBar.get(0);
-        const newTime = audio.duration * ((e.pageX - bar.offsetLeft) / bar.clientWidth);
+        let audio = this.ui.player.get(0);
+        let bar = this.ui.progressBar.get(0);
+        let newTime = audio.duration * ((e.pageX - bar.offsetLeft) / bar.clientWidth);
         audio.currentTime = newTime;
     },
 
     onVolumeChange: function() {
-        const player = application.appLayout.getRegion('player').currentView;
-        const audio = player.ui.player.get(0);
-        const bar = player.ui.volumeBar.get(0);
-        const percent = audio.volume * 100 + '%';
+        let player = application.appLayout.getRegion('player').currentView;
+        let audio = player.ui.player.get(0);
+        let bar = player.ui.volumeBar.get(0);
+        let percent = audio.volume * 100 + '%';
         player.ui.volume.width(percent);
     },
 
     changeVol: function(e) {
-        const audio = this.ui.player.get(0);
-        const bar = this.ui.volumeBar.get(0);
-        const volume = (e.pageX - bar.offsetLeft) / bar.clientWidth;
+        let audio = this.ui.player.get(0);
+        let bar = this.ui.volumeBar.get(0);
+        let volume = (e.pageX - bar.offsetLeft) / bar.clientWidth;
         audio.volume = volume;
     },
 
     toggle: function() {
-        const audio = this.ui.player.get(0);
+        let audio = this.ui.player.get(0);
         if (audio.paused && audio.src) {
             audio.play();
             this.ui.playButton.children('use').attr(
@@ -127,11 +127,11 @@ const Player = Mn.LayoutView.extend({
     },
 
     timeupdate: function() {
-        const player = application.appLayout.getRegion('player').currentView;
-        const audio = player.ui.player.get(0);
+        let player = application.appLayout.getRegion('player').currentView;
+        let audio = player.ui.player.get(0);
         player.ui.currentTime.html(timeToString(audio.currentTime));
         player.ui.totalTime.html(timeToString(audio.duration));
-        const percent = audio.currentTime / audio.duration * 100 + '%';
+        let percent = audio.currentTime / audio.duration * 100 + '%';
         player.ui.progress.width(percent);
     }
 });

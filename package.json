@@ -15,6 +15,7 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "backbone.marionette": "^2.4.4",
+    "backbone.radio": "^1.0.2",
     "cozysdk-client": "0.0.4",
     "jquery": "^2.2.0",
     "underscore": "^1.8.3"

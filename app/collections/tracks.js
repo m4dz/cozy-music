@@ -39,7 +39,7 @@ const Tracks = Backbone.Collection.extend({
             cozysdk.run('Track', this.type, {}, (err, res) => {
                 console.log('TRACKS fetch', err, res);
                 if (res) {
-                    const tracks = JSON.parse('' + res);
+                    let tracks = JSON.parse('' + res);
                     for (let i = 0; i < tracks.length; i++) {
                         this.add(tracks[i].value);
                     }

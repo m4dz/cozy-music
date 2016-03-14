@@ -6,14 +6,14 @@ import AppLayout from './views/app_layout';
 
 require('./styles/app.styl');
 
-const Application = Mn.Application.extend({
+let Application = Mn.Application.extend({
 
     initialize: function () {
         this.allTracks = new Tracks([], { type: 'all' });
         this.upNext = new Tracks();
         this.upNext.on('change:currentTrack', function() {
-            const upNext = app.upNext;
-            const currentTrack = upNext.getAttr('currentTrack');
+            let upNext = app.upNext;
+            let currentTrack = upNext.getAttr('currentTrack');
             if (!upNext.contains(currentTrack)) {
                 upNext.push(currentTrack);
             }
@@ -48,6 +48,6 @@ const Application = Mn.Application.extend({
     }
 });
 
-const app = new Application();
+let app = new Application();
 
 export default app;
