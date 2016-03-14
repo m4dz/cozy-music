@@ -8,11 +8,7 @@ const PlaylistView = Mn.ItemView.extend({
 
     tagName: 'p',
     
-    initialize: function () {
-        if (this.model) {
-            this.model.on('change', this.render, this);
-        }
-    },
+    modelEvents: { change: 'render' },
     
     serializeData: function() {
         return {

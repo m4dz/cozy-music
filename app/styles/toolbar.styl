@@ -102,30 +102,62 @@ div[role='toolbar']
             svg
                 path
                     fill: $blue
-                
-                
 
     .playlists
         padding-right: 16px
+        
+        .container
+            padding-left: 16px
 
         .add-playlist
-            cursor: pointer
+                cursor: pointer
+                
+                input[type='text']
+                    display: none
+                
+                h4
+                    margin-top: 0px
+                    padding-left: 20px
+                    display: inline-block
+                
+                svg
+                    height 16px
+                    width: 16px
+                    position: relative
+                    left: 16px
+                    top: 4px
+
+                    path
+                        fill: #92a0b2
+                    
+        .input
+            border: solid 1px $blue
+            font-family: 'SSP-reg'
+            width: 100%
+            height: 32px
+            border-radius: 2px
+            position: relative
             
             h4
-                margin-top: 0px
-                margin-left: 4px
-                display: inline-block
-            
+                display: none
+
             svg
+                position: absolute
                 height 16px
                 width: 16px
-                position: relative
-                left: 32px
-                top: 4px
-
+                top: 8px
+                left: 15px
+                
                 path
-                    fill: #92a0b2
+                    fill: $blue
 
+            input[type='text']
+                color: #788195
+                all: unset
+                padding-left: 40px
+                box-sizing: border-box
+                width: 100%
+                height: 100%
 
         h4
             margin-top: 33px

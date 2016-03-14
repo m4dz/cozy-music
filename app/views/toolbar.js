@@ -43,7 +43,7 @@ const Toolbar = Mn.LayoutView.extend({
             }
         });
         ui.search.focusout(function() {
-            if (searchText.val() == '') {
+            if (ui.searchText.val() == '') {
                 ui.search.removeClass('input-focused');
             }
         });
@@ -66,6 +66,7 @@ const Toolbar = Mn.LayoutView.extend({
             .removeClass('button')
             .addClass('input')
             .addClass('input-focused');
+        this.ui.importText.focus();
     },
 
     search: function() {

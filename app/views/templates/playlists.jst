@@ -4,9 +4,12 @@
 
 <h4>PLAYLIST</h4>
 <div id="playlist-list"></div>
-<div class="add-playlist">
-    <svg>
-        <use xlink:href="<%= require('../../assets/icons/plus-sm.svg') %>"/>
-    </svg>
-	<h4>ADD PLAYLIST</h4>
+<div class="container">
+    <div id="add-playlist" class="add-playlist">
+        <svg>
+            <use xlink:href="<%= require('../../assets/icons/plus-sm.svg') %>"/>
+        </svg>
+        <input id="playlist-text" type="text" placeholder="Add Playlist">
+        <h4>ADD PLAYLIST</h4>
+    </div>
 </div>
