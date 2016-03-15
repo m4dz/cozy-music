@@ -1,18 +1,20 @@
 import Backbone from 'backbone';
 import cozysdk from 'cozysdk-client';
+import Tracks from '../collections/tracks';
+
 
 const Playlist = Backbone.Model.extend({
     
     defaults: {
         _id: undefined,
         title: '',
-        tracks: [],
+        tracks: new Tracks([], {}),
         dateAdded: Date.now
     },
 
     idAttribute:'_id',
 
-    sync: function (method, model, options) {
+    sync(method, model, options) {
         switch (method) {
             case 'create':
                 cozysdk.create('Playlist', model.toJSON(), (err, res) => {
@@ -51,7 +53,7 @@ const Playlist = Backbone.Model.extend({
         }
     },
 
-    addTrack: function(track) {
+    addTrack(track) {
         this.set('tracks', this.get('tracks').push(track));
     }
 });

@@ -13,27 +13,22 @@ const Content = Mn.LayoutView.extend({
         tracks: '[role="tracks"]',
     },
 
-    onBeforeShow: function() {
-        this.showChildView('header', new HeaderView());
-        this.switchPlaylist(application.allTracks);
+    onBeforeShow() {
+        let header = new HeaderView({ model: application.appState })
+        this.showChildView('header', header);
+        this.listenTo(
+            application.appState,
+            'change:currentPlaylist',
+            this.switchPlaylist
+        );
+        this.switchPlaylist();
     },
 
-    switchPlaylist: function (collection) {
-        console.log(collection)
+    switchPlaylist() {
+        let collection = application.appState.get('currentPlaylist').get('tracks');
         this.showChildView('tracks',
             new TracksView({ collection: collection})
         );
-        this.stopListening();
-        application.headerInfos.set('count', collection.length);
-        this.listenTo(collection, 'add', function() {
-            application.headerInfos.set('count', collection.length);
-        });
-        this.listenTo(collection, 'remove', function() {
-            application.headerInfos.set('count', collection.length);
-        });
-        this.listenTo(collection, 'reset', function() {
-            application.headerInfos.set('count', collection.length);
-        });
     }
 });
 

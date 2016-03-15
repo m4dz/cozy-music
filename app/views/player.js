@@ -2,6 +2,7 @@ import Mn from 'backbone.marionette';
 import application from '../application';
 import { timeToString } from '../libs/utils';
 
+
 const Player = Mn.LayoutView.extend({
     
     template: require('./templates/player'),
@@ -26,22 +27,25 @@ const Player = Mn.LayoutView.extend({
         'click #volume-bar': 'changeVol'
     },
 
-    onRender: function() {
-        let audio = this.ui.player.get(0);
-        audio.ontimeupdate = this.timeupdate;
-        audio.onended = this.next;
-        audio.onvolumechange = this.onVolumeChange;
-        audio.volume = 0.5;
-        this.listenTo(application.upNext, 'change:currentTrack', function() {
-            let upNext = application.upNext;
-            let currentTrack = upNext.getAttr('currentTrack');
+    initialize() {
+        application.channel.reply('reset:UpNext', this.render, this);
+        this.listenTo(application.appState, 'change:currentTrack', function() {
+            let currentTrack = application.appState.get('currentTrack');
             if (currentTrack) {
                 this.load(currentTrack);
             }
         });
     },
 
-    load: function(track) {
+    onRender() {
+        let audio = this.ui.player.get(0);
+        audio.ontimeupdate = this.timeupdate;
+        audio.onended = this.next;
+        audio.onvolumechange = this.onVolumeChange;
+        audio.volume = 0.5;
+    },
+
+    load(track) {
         let title = track.get('metas').title;
         let artist = track.get('metas').artist;
         let text;
@@ -51,12 +55,13 @@ const Player = Mn.LayoutView.extend({
             text = title;
         }
         this.ui.trackname.text(text);
+        let self = this;
         track.getStream(function(url) {
-            application.appLayout.getRegion('player').currentView.play(url);
+            self.play(url);
         });
     },
 
-    play: function(url) {
+    play(url) {
         let audio = this.ui.player.get(0);
         audio.src = url;
         audio.load();
@@ -67,34 +72,34 @@ const Player = Mn.LayoutView.extend({
         );
     },
 
-    prev: function() {
+    prev() {
         let upNext = application.upNext;
-        let currentTrack = upNext.getAttr('currentTrack');
+        let currentTrack = application.appState.get('currentTrack');
         let index = upNext.indexOf(currentTrack);
         let prev = upNext.at(index - 1)
         if (prev) {
-            upNext.setAttr('currentTrack', prev);
+            application.appState.set('currentTrack', prev);
         }
     },
 
-    next: function() {
+    next() {
         let upNext = application.upNext;
-        let currentTrack = upNext.getAttr('currentTrack');
+        let currentTrack = application.appState.get('currentTrack');
         let index = upNext.indexOf(currentTrack);
         let next = upNext.at(index + 1)
         if (next) {
-            upNext.setAttr('currentTrack', next);
+            application.appState.set('currentTrack', next);
         }
     },
 
-    scroll: function(e) {
+    scroll(e) {
         let audio = this.ui.player.get(0);
         let bar = this.ui.progressBar.get(0);
         let newTime = audio.duration * ((e.pageX - bar.offsetLeft) / bar.clientWidth);
         audio.currentTime = newTime;
     },
 
-    onVolumeChange: function() {
+    onVolumeChange() {
         let player = application.appLayout.getRegion('player').currentView;
         let audio = player.ui.player.get(0);
         let bar = player.ui.volumeBar.get(0);
@@ -102,14 +107,14 @@ const Player = Mn.LayoutView.extend({
         player.ui.volume.width(percent);
     },
 
-    changeVol: function(e) {
+    changeVol(e) {
         let audio = this.ui.player.get(0);
         let bar = this.ui.volumeBar.get(0);
         let volume = (e.pageX - bar.offsetLeft) / bar.clientWidth;
         audio.volume = volume;
     },
 
-    toggle: function() {
+    toggle() {
         let audio = this.ui.player.get(0);
         if (audio.paused && audio.src) {
             audio.play();
@@ -126,7 +131,7 @@ const Player = Mn.LayoutView.extend({
         }
     },
 
-    timeupdate: function() {
+    timeupdate() {
         let player = application.appLayout.getRegion('player').currentView;
         let audio = player.ui.player.get(0);
         player.ui.currentTime.html(timeToString(audio.currentTime));

@@ -3,6 +3,7 @@ import { syncFiles } from '../libs/file';
 import scdl from '../libs/soundcloud';
 import PlaylistsView from './playlists';
 import NotificationView from './notification';
+import application from '../application';
 
 
 const Toolbar = Mn.LayoutView.extend({
@@ -27,11 +28,11 @@ const Toolbar = Mn.LayoutView.extend({
         'click #search': 'search'
     },
 
-    sync: function() {
+    sync() {
         syncFiles();
     },
 
-    onRender: function() {
+    onRender() {
         let ui = this.ui;
         this.showChildView('playlists', new PlaylistsView());
         ui.importSC.focusout(function() {
@@ -52,16 +53,17 @@ const Toolbar = Mn.LayoutView.extend({
                 scdl.import(ui.importText.val());
             }
         });
+        application.channel.reply('notification', this.showNotification, this);
     },
 
-    showNotification: function(msg) {
+    showNotification(msg) {
         this.showChildView(
             'notification',
-            new NotificationView({ message: msg})
+            new NotificationView({ message: msg })
         );
     },
 
-    importStream: function() {
+    importStream() {
         this.ui.importSC
             .removeClass('button')
             .addClass('input')
@@ -69,7 +71,7 @@ const Toolbar = Mn.LayoutView.extend({
         this.ui.importText.focus();
     },
 
-    search: function() {
+    search() {
         this.ui.search.addClass('input-focused');
     }
 });

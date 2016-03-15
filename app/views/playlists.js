@@ -22,7 +22,7 @@ const Playlists = Mn.CompositeView.extend({
         'click #add-playlist': 'createPlaylist'
     },
 
-    onRender: function() {
+    onRender() {
         let ui = this.ui;
         ui.addPlaylist.focusout(function() {
             if (ui.playlistText.val() == '') {
@@ -43,30 +43,28 @@ const Playlists = Mn.CompositeView.extend({
         });
     },
 
-    changePlaylist: function(e) {
+    changePlaylist(e) {
         let playlist = $(e.currentTarget);
         let playlists = $(".playlists p");
         let index = playlists.index(playlist) - 2;
         playlists.removeClass('selected');
         playlist.addClass('selected');
-        
-        application.headerInfos.set('title', e.currentTarget.innerHTML);
 
         if (playlist.attr('id') == "up-next") {
-            application.switchPlaylist(application.upNext);
+            application.appState.set('currentPlaylist', application.upNext);
         } else if (playlist.attr('id') == "all-song") {
-            application.switchPlaylist(application.allTracks);
+            application.appState.set('currentPlaylist', application.allTracks);
         } else {
             this.currentIndex = index;
         }
     },
 
-    createPlaylist: function() {
+    createPlaylist() {
         this.ui.addPlaylist.removeClass('add-playlist').addClass('input');
         this.ui.playlistText.focus();
     },
     
-    initialize: function() {
+    initialize() {
         this.collection = application.allPlaylists;
     }
 });

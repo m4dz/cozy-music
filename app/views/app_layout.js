@@ -15,13 +15,13 @@ const AppLayout = Mn.LayoutView.extend({
         player: '[role="player"]'
     },
 
-    onRender: function() {
+    onRender() {
         this.showChildView('content', new ContentView());
         this.showChildView('player', new PlayerView());
         this.showChildView('toolbar', new ToolbarView());
     },
 
-    getTracksView: function() {
+    getTracksView() {
         return this.content.currentView.tracks.currentView;
     }
 });

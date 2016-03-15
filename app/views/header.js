@@ -11,24 +11,38 @@ const Header = Mn.ItemView.extend({
         'click #delete-playlist': 'deletePlaylist'
     },
 
-    //modelEvents: { change: 'render' }, // DON'T WORK
+    modelEvents: { "change:currentPlaylist": 'changedPlaylist' },
 
-    initialize: function() {
-        this.model = application.headerInfos;
-        this.listenTo(this.model, 'change', this.render)
-    },
+    initialize() {
+       this.listenTo(
+            this.model.get('currentPlaylist').get('tracks'),
+            'update reset',
+            this.render
+        ); 
+   },
 
-    serializeData: function() {
+    serializeData() {
+        let currentPlaylist = this.model.get('currentPlaylist')
         return {
-            title: this.model.get('title'),
-            count: this.model.get('count')
+            title: currentPlaylist.get('title'),
+            count: currentPlaylist.get('tracks').length
         }
     },
 
-    resetUpNext: function() {
-        application.upNext.setAttr('currentTrack', undefined);
-        application.upNext.reset();
-        application.appLayout.getRegion('player').currentView.render();
+    changedPlaylist(model, newValue) {
+        this.stopListening(model.changed.currentPlaylist);
+        this.listenTo(
+            this.model.get('currentPlaylist').get('tracks'),
+            'update reset',
+            this.render
+        ); 
+        this.render();
+    },
+
+    resetUpNext() {
+        application.appState.set('currentTrack', undefined);
+        application.upNext.get('tracks').reset();
+        application.channel.request('reset:UpNext')
     },
 
 });

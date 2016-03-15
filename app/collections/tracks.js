@@ -4,38 +4,45 @@ import cozysdk from 'cozysdk-client';
 
 
 const Tracks = Backbone.Collection.extend({
+
     model: Track,
 
-    initialize: function(models, options) {
+    initialize(models, options) {
         this.on('add', this.onAdd, this);
-        if (options) {
-            this.type = options.type;
+        this.type = options.type;
+        if (this.type == 'upNext') {
+            let application = require('../application'); // Switch to System.import later
+            this.listenTo(application, 'start', this.addCurrentToUpNext);
         }
-        this._attributes = {}
     },
 
-    setAttr: function(prop, value) {
-        this._attributes[prop] = value;
-        this.trigger('change:' + prop, value);
+    addCurrentToUpNext() {
+        console.log('addCurrentToUpNext')
+        this.listenTo(
+            application.appState,
+            'change:currentTrack',
+            function() {
+                console.log('change:currentTrack')
+                let currentTrack = application.appState.get('currentTrack');
+                if (!this.contains(currentTrack)) {
+                    this.push(currentTrack);
+                }
+            }
+        );
     },
 
-    getAttr: function(prop) {
-        return this._attributes[prop];
-    },
-
-    onAdd: function(track) {
+    onAdd(track) {
         if (!track.get('_id')) {
             track.save();
         }
     },
     
-    comparator: function (collection) {
-        return collection.get('metas').title;
+    comparator(model) {
+        return model.get('metas').title;
     },
     
-    sync: function (method, model, options) {
+    sync(method, model, options) {
         if (method == 'read' && this.type) {
-            console.log('fetch');
             cozysdk.run('Track', this.type, {}, (err, res) => {
                 console.log('TRACKS fetch', err, res);
                 if (res) {

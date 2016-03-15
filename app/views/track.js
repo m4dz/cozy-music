@@ -16,21 +16,19 @@ const TrackView = Mn.ItemView.extend({
 
     modelEvents: { change: 'render' },
 
-    play: function (e) {
-        application.upNext.setAttr('currentTrack', this.model);
+    play(e) {
+        application.appState.set('currentTrack', this.model);
     },
     
-    delete: function (e) {
+    delete(e) {
         console.log('delete')
         let item = this.model;
         item.set('hidden', true);
         item.save();
-        application.allTracks.remove(item);
-        application.upNext.remove(item);
         e.stopPropagation();
     },
     
-    serializeData: function() {
+    serializeData() {
         let title = this.model.get('metas').title;
         let album = this.model.get('metas').album;
         let artist = this.model.get('metas').artist;

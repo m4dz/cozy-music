@@ -9,11 +9,11 @@ const Notification = Mn.ItemView.extend({
         notification: '.notification',
     },
 
-    initialize: function(options) {
+    initialize(options) {
         this.message = options.message;
     },
 
-    onRender: function() {
+    onRender() {
         this.ui.notification.show();
         this.ui.notification.addClass('show');
         setTimeout(function() {
@@ -21,7 +21,7 @@ const Notification = Mn.ItemView.extend({
         }, 4500);
     },
 
-    serializeData: function() {
+    serializeData() {
         return {
             message: this.message
         }

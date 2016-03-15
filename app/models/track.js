@@ -16,7 +16,7 @@ const Track = Backbone.Model.extend({
 
     idAttribute:'_id',
 
-    sync: function (method, model, options) {
+    sync(method, model, options) {
         switch (method) {
             case 'create':
                 cozysdk.create('Track', model.toJSON(), (err, res) => {
@@ -55,7 +55,7 @@ const Track = Backbone.Model.extend({
         }
     },
 
-    getStream: function (callback) {
+    getStream(callback) {
         let ressource = this.get('ressource');
         this.set('plays', this.get('plays') +1);
         this.save();

@@ -10,7 +10,7 @@ const PlaylistView = Mn.ItemView.extend({
     
     modelEvents: { change: 'render' },
     
-    serializeData: function() {
+    serializeData() {
         return {
             title: this.model.get('title')
         };

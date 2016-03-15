@@ -31,8 +31,7 @@ function getAllTracksFileId(musicFiles) {
             saveTrack(musicFiles, tracksFileId);
             deleteTrack(allTracksFiles, musicFilesFileId);
             let msg = 'All your audio files have been added';
-            application.appLayout.getRegion('toolbar')
-                .currentView.showNotification(msg);
+            application.channel.request('notification', msg);
         }
     });
 }

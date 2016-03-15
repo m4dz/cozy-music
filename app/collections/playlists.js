@@ -7,23 +7,20 @@ const Playlists = Backbone.Collection.extend({
    	
    	model: Playlist,
 
-    initialize: function() {
+    initialize() {
         this.on('add', this.onAdd, this);
     },
 
-    onAdd: function(playlist) {
+    onAdd(playlist) {
         if (!playlist.get('_id')) {
             playlist.save()
         }
     },
     
-    comparator: function (collection) {
-        return collection.get('title');
-    },
+    comparator: 'title',
 
-    sync: function (method, model, options) {
+    sync(method, model, options) {
         if (method == 'read') {
-            console.log('fetch playlist');
             cozysdk.run('Playlist', 'all', {}, (err, res) => {
                 console.log('Playlist fetched', err, res);
                 if (res) {
