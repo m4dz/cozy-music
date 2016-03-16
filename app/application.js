@@ -11,14 +11,16 @@ require('./styles/app.styl');
 
 let Application = Mn.Application.extend({
 
-    _initChannel() {
+    _initChannel () {
         this.channelName = _.result(this, 'channelName') || 'global';
         this.channel = _.result(this, 'channel') || Radio.channel(this.channelName);
     },
 
-    initialize() {
+    initialize () {
         this.appState = new AppState();
+    },
 
+    onBeforeStart () {
         let allTracks = new Tracks([], { type: 'all' });
         allTracks.fetch({
             success() {
@@ -45,7 +47,7 @@ let Application = Mn.Application.extend({
         this.allPlaylists.fetch();
     },
 
-    onStart() {
+    onStart () {
         if (Backbone.history) {
             Backbone.history.start();
         }

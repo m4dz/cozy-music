@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import Track from '../models/track';
 import cozysdk from 'cozysdk-client';
-
+import application from '../application'
 
 const Tracks = Backbone.Collection.extend({
 
@@ -11,7 +11,6 @@ const Tracks = Backbone.Collection.extend({
         this.on('add', this.onAdd, this);
         this.type = options.type;
         if (this.type == 'upNext') {
-            let application = require('../application'); // Switch to System.import later
             this.listenTo(application, 'start', this.addCurrentToUpNext);
         }
     },
@@ -36,11 +35,11 @@ const Tracks = Backbone.Collection.extend({
             track.save();
         }
     },
-    
+
     comparator(model) {
         return model.get('metas').title;
     },
-    
+
     sync(method, model, options) {
         if (method == 'read' && this.type) {
             cozysdk.run('Track', this.type, {}, (err, res) => {
