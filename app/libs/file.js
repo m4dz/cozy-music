@@ -88,7 +88,11 @@ function getTrack(track, callback) {
 function getBinary(track, callback) {
     let binaryId = track.binary.file.id;
     cozysdk.find('Binary', binaryId, (err, binary) => {
-        migrateTrack(track, binary, callback);
+        if (binary._attachments) {
+            migrateTrack(track, binary, callback);
+        } else {
+            callback();
+        }
     });
 }
 

@@ -135,7 +135,7 @@ cozysdk.defineRequest('Track', 'oldDoctype', (doc) => {
 });
 
 cozysdk.defineRequest('Track', 'playable', (doc) => {
-        if (!doc.hidden && !doc._attachments) {
+        if (!doc.hidden && doc.metas) {
             emit(doc._id, doc);
         }
     }, (error, response) => {
